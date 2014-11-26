@@ -39,7 +39,25 @@ h2 {
     font-size: 2em;
     line-height: 1.2;
     font-family: 'Varela Round', sans-serif;
-    /*word-wrap: break-word;*/
+}
+
+.details-blog {
+    text-align: center;
+    color: #245269;
+    font-size: 2em;
+    line-height: 1.2;
+    font-family: 'Varela Round', sans-serif;
+}
+
+
+.details-blog-body {
+    text-align: center;
+    color: #245269;
+    font-size: 2em;
+    line-height: 1.5;
+    font-family: 'Varela Round', sans-serif;
+    margin-left: 300px;
+    margin-right: 300px;
 }
 
 .entry-summary {

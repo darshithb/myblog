@@ -40,12 +40,12 @@
         {% for post in posts %}
 
              <article>
-
+{#                <p> {{ post.0.slug }}</p>#}
             	<header class="entry-header">
-                    <h1>{% block title %}{{ post.0 }}{% endblock %}</h1>
+                    <h1><a href="blog/{{ post.0.slug }}"> {% block title %}{{ post.0 }}{% endblock %}</a></h1>
 
 				<p class="new_font_size">
-						<a sl-processed="1" href="http://darshithbadiyani.wordpress.com/2014/11/17/introduction-to-data-structures-in-python/">
+						<a sl-processed="1">
                             <span>
                                 <span>Posted </span>
                                 <time datetime="3 Days Ago"><i></i>
@@ -54,7 +54,7 @@
                             </span>
                         </a>
                         <span> by
-                                <a sl-processed="1" href="http://darshithbadiyani.wordpress.com/author/darshithbadiyani/">
+                                <a sl-processed="1">
                                     {{ post.0.first_name }}
                                 </a>
                         </span>		
@@ -63,7 +63,9 @@
 
             	<div class="entry-summary">
 {#                    <p><b> Date posted: {{ post.0.posted }} <br> Category: {{ post.0.category }}<br> </b></p>#}
-            		<p><br>{{ post.0.body }}<br></p>
+            		<p><br>{{ post.0.body }} <br>
+                    Thank you!!
+                    </p>
 {#                    <p><a class="btn btn-primary btn-lg" href="#" role="button">View more</a></p>#}
             	</div><!-- .entry-content -->
             </article><!-- #post-## -->

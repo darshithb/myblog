@@ -14,10 +14,10 @@ v1_api.register(EntryResource())
 
 urlpatterns = patterns('',
                        url(r'^$', index),
-                       url(r'^blog/view/(?P<slug>[^\.]+)', 'view_post', name='view_blog_post'),
+                       url(r'^blog/(?P<slug>[^\.]+)', view_blog_category.as_view(), name='view_blog_post'),
                        #url(r'^blog/category/(?P<slug>[^\.]+)', 'view_category', name='view_blog_category'),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^blog/', include('myapp.urls')),
                        url(r'^api/', include(v1_api.urls)),
-                       url(r'^/(?P<slug>)', 'view_category', name='view_blog_category'),
+                       # url(r'^/(?P<slug>)', view_blog_category.as_view(), name='view_blog_category'),
                        )

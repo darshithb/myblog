@@ -2,6 +2,7 @@ from django.shortcuts import render
 from myapp.models import Blog, Category
 from django.shortcuts import render_to_response, get_object_or_404
 import datetime
+from django.views.generic import TemplateView
 
 
 def index(request):
@@ -39,3 +40,18 @@ def view_category(request, slug):
         'category': Category_list,
         'posts': Blog.objects.filter(category=Category)[:5]
     })
+
+
+class view_blog_category(TemplateView):
+    template_name = "view_blog.html"
+
+    def render_to_response(self, context, **response_kwargs):
+        # print context.get('slug')
+        obj = Blog.objects.filter(slug=context.get('slug'))
+        context['obj'] = obj[0]
+        return self.response_class(
+            request = self.request,
+            template = self.get_template_names(),
+            context = context,
+            **response_kwargs
+        )
