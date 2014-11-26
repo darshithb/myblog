@@ -1,0 +1,81 @@
+{% extends 'base_site.html' %}
+
+{% load static %}
+
+{#{% block title %}<center class="heading"> A new Blogging experience </center> {% endblock %}#}
+
+{% block content %}
+
+
+
+{#    <h2><b>Categories</b></h2>#}
+{#    {% if categories %}#}
+{#        <ul>#}
+{#        {% for category in categories %}#}
+{#            <li><a href="{{ category.slug }}"><u>{{ category }}</u></a></li>#}
+{##}
+{#            <div class="jumbotron" >#}
+{#                <h1>"{{ category }}"</h1>#}
+{#                    <p> Title: {{ category.title }}</p>#}
+{#                    <p><a class="btn btn-primary btn-lg" href="{{ category.slug }}" role="button">View more</a></p>#}
+{#            </div>#}
+{##}
+{#        {% endfor %}#}
+{#        </ul>#}
+{#    {% else %}#}
+{#        <p>There are no posts.</p>#}
+{#    {% endif %}#}
+
+{#    <h2><b> Posts </b></h2>#}
+
+
+
+
+
+
+
+    {% if posts %}
+{#        <ul>{%for post in posts%}<li>{{post.0}}</li>{%endfor%}</ul>#}
+        <ul> 
+        {% for post in posts %}
+
+             <article>
+
+            	<header class="entry-header">
+                    <h1>{% block title %}{{ post.0 }}{% endblock %}</h1>
+
+				<p class="new_font_size">
+						<a sl-processed="1" href="http://darshithbadiyani.wordpress.com/2014/11/17/introduction-to-data-structures-in-python/">
+                            <span>
+                                <span>Posted </span>
+                                <time datetime="3 Days Ago"><i></i>
+                                        {{ post.1.0 }} Days Ago
+                                </time>
+                            </span>
+                        </a>
+                        <span> by
+                                <a sl-processed="1" href="http://darshithbadiyani.wordpress.com/author/darshithbadiyani/">
+                                    {{ post.0.first_name }}
+                                </a>
+                        </span>		
+                </p>
+            	</header><!-- .entry-header -->
+
+            	<div class="entry-summary">
+{#                    <p><b> Date posted: {{ post.0.posted }} <br> Category: {{ post.0.category }}<br> </b></p>#}
+            		<p><br>{{ post.0.body }}<br></p>
+{#                    <p><a class="btn btn-primary btn-lg" href="#" role="button">View more</a></p>#}
+            	</div><!-- .entry-content -->
+            </article><!-- #post-## -->
+
+                </div>
+            <hr>
+
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no posts.</p>
+    {% endif %}
+
+{% endblock %}
+

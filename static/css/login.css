@@ -1,0 +1,236 @@
+/* Existing previously>>>>> */
+
+
+#login form{margin-left:8px;padding:26px 24px 46px;font-weight:normal;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;background:#fff;border:1px solid #e5e5e5;-moz-box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;-webkit-box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;-khtml-box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;}
+#login form .forgetmenot{font-weight:normal;float:left;margin-bottom:0;}
+
+#login  label{color:#777;font-size:14px;text-align:left;margin-top:3px}
+
+#login  form .submit,.alignright{float:right;}
+#login{width:320px;margin:7em auto;margin-top:30px;}
+#login  input{margin-top:5px}
+
+
+/* <<<<<<<<< Existing previously */
+
+
+
+/*New logic css for responsive layout*/
+
+
+#id_username {
+    height:40px;
+    width:100%;
+    font-size:30pt;
+}
+
+#id_password {
+    height:40px;
+    width:100%;
+    font-size:30pt;
+}
+
+.planit_image {
+    margin: -40px auto 7em;
+    width: 150px;
+    height: 0px;/*Do not change it will push form down from the planitretail image*/
+}
+
+.has-error {
+    border: 1px solid red;
+    color: red;
+}
+
+hr.footer-separator{
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+/*
+#main-footer{
+    padding-bottom: 35px;
+    padding-left: 165px;
+}
+#footer-id{
+    position: fixed;
+    bottom: 100%;
+    padding-bottom: 10px;
+}
+*/
+
+@charset "utf-8";
+/* CSS Document */
+
+/* ---------- GENERAL ---------- */
+
+body {
+    background: url(../images/wooden.jpg) no-repeat center center fixed;
+    color: #FFF;
+    font: 100%/1.5em sans-serif;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+h3 { margin: 0; }
+
+a {
+    color: #999;
+    text-decoration: none;
+}
+
+a:hover { color: #1dabb8; }
+
+fieldset {
+    border: none;
+    margin: 0;
+}
+
+input {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type="submit"] { cursor: pointer; width:100%;}
+
+.clearfix { *zoom: 1; }
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table; 
+}
+.clearfix:after { clear: both; }
+
+/* ---------- LOGIN-FORM ---------- */
+
+#login-form {
+    margin: 15px auto 15px 10px;
+    width: 96%;
+}
+
+#login-form h3 {
+    background-color: rgba(97, 101, 108, 0.2);
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    font-size: 14px;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#login-form fieldset {
+    background: rgba(0,0,0,0.3);
+    border-radius: 0 0 5px 5px;
+    padding: 20px;
+    position: relative;
+}
+
+#login-form fieldset:before {
+    background-color: #fff;
+    content: "";
+    height: 8px;
+    left: 50%;
+    margin: -4px 0 0 -4px;
+    position: absolute;
+    top: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 8px;
+}
+
+#login-form input {
+    font-size: 20px;
+    text-align:center;
+    background-color: rgba(0,0,0,0.3);
+    
+}
+
+#login-form input[type="email"],
+#login-form input[type="password"] {
+    padding: 12px 10px;
+}
+
+#login-form input[type="email"] {
+    border-radius: 3px 3px 0 0;
+}
+
+/*#login-form input[type="password"] {
+    border-top: none;
+    border-radius: 0px 0px 3px 3px;
+    width: 100%;
+}*/
+
+#login-form input[type="submit"] {
+    background: #1dabb8;
+    border-radius: 3px;
+    color: #fff;
+    /*float: right;*/
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 12px 20px;
+}
+
+#login-form input[type="submit"]:hover { background: #198d98; }
+/*
+#login-form footer {
+    font-size: 12px;
+    margin-top: 16px;
+}
+*/
+.info {
+    background: #e5e5e5;
+    border-radius: 50%;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 10px 0 0;
+    text-align: center;
+    width: 20px;
+}
+
+
+.container-pad {
+            padding-left: 30px;
+            padding-right: 30px;
+            max-width: 96%;
+            height:70%;
+        }
+.content-border{
+            /*box-shadow: rgba(0,0,0,0.2) 1px -2px 4px, inset rgba(0,0,0,0.2) 0px -1px 1px;*/
+            min-height:80px;
+            min-width: 250px;
+            width: 60%;
+            /*background: rgba(0,0,0,0.3);*/
+            padding-top: 60px;
+        }
+/*#login-form{
+    border-style: solid;
+    border-color: #fff #EEE9E9 #EEE9E9 #EEE9E9;
+
+}*/
+#wp-submit{
+    width: 100%;
+}
+
+.alert-danger, .alert-error, .alert-danger .alert-heading, .alert-error .alert-heading {
+    color: #FF0000;
+}
+.alert-danger, .alert-error {
+    background-color: #f4f4f4;
+    border-color: #FF0000;
+}

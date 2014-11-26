@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+    <head>
+        <title>{% block head_title %} New experience {% endblock %}</title>
+
+        <meta name= "viewport" content="width=device-width, initial-scale=1.0">
+        <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+        <div class="wrapper-easy"><span class="text_pos"> A New Blogging Experience </span>
+        <span class="second-wrapper"> Welcome to my blogs!! </span>
+
+        </div>
+
+{#        <img src="{% get_static_prefix %}images/easy.jpg" style="width:100%;height:550px">#}
+
+
+
+		<style type="text/css" title="currentStyle">
+			@import "{% get_static_prefix %}css/bootstrap.min.css";
+{#		    @import "{% get_static_prefix %}css/bootstrap-theme.min.css";#}
+{#		    @import "{% get_static_prefix %}js/jquery-2.1.1.min.js";#}
+		    @import "{% get_static_prefix %}js/bootstrap.min.js";
+		    @import "{% get_static_prefix %}css/style.css";
+		</style>
+    </head>
+    <body>
+{#        <h1>{% block title %}Welcome to my blogs!!{% endblock %}</h1>#}
+        {% block content %}
+{#            <script src="http://code.jquery.js"></script>#}
+{#            <script src="js/bootstrap.min.js"></script>#}
+
+        {% endblock %}
+    </body>
+</html>
