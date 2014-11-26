@@ -1,0 +1,26 @@
+{%  extends 'base_site.html' %}
+
+{% block content %}
+{#            <script src="http://code.jquery.js"></script>#}
+{#            <script src="js/bootstrap.min.js"></script>#}
+    <br>
+    <header class="details-blog">
+                     {% block title %}"{{ obj.title }}"{% endblock %}
+
+                        <span> by
+                                <a sl-processed="1"><i>
+                                    {{ obj.first_name }}</i>
+                                </a>
+                        </span>
+
+            	</header><!-- .entry-header -->
+
+        <div class="details-blog-body">
+            		<p><br>{{ obj.body }} <br>
+                    Thank you!!
+                    </p>
+            	</div><!-- .entry-content -->
+    <br>
+        {% endblock %}
+
+
