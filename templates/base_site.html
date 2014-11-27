@@ -8,6 +8,8 @@
         <div class="wrapper-easy"><span class="text_pos"> A New Blogging Experience </span>
         <span class="second-wrapper"> Welcome to my blogs!! </span>
 
+
+
         </div>
 
 {#        <img src="{% get_static_prefix %}images/easy.jpg" style="width:100%;height:550px">#}
@@ -23,6 +25,8 @@
 		</style>
     </head>
     <body>
+
+           <a href="{% url 'add_blog' %}" class="btn btn-info add-blog"> + ADD BLOG </a>
 {#        <h1>{% block title %}Welcome to my blogs!!{% endblock %}</h1>#}
         {% block content %}
 {#            <script src="http://code.jquery.js"></script>#}
