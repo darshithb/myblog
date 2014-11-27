@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1> Write about your Blog here!! </h1>
+    <form method="post" action="/addblog"> {% csrf_token %}
+
+        <p class="text-justify">{{ form.first_name }}</p>
+        <p class="text-justify">{{ form.title }}</p>
+        <p class="text-justify">{{ form.category }}</p>
+        <p class="text-justify">{{ form.body }}</p>
+
+        <button type="submit" value="Add Blog" class="btn btn-success"> ADD BLOG </button>
+        <button> CANCEL </button>
+    </form>
+
+</body>
+</html>
