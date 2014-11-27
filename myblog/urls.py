@@ -19,5 +19,6 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^blog/', include('myapp.urls')),
                        url(r'^api/', include(v1_api.urls)),
+                       url(r'^addblog/', add_new_blog.as_view(), name='add_blog')
                        # url(r'^/(?P<slug>)', view_blog_category.as_view(), name='view_blog_category'),
                        )

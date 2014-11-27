@@ -12,6 +12,20 @@ h2 {
   src: local('../fonts/Righteous-Regular.ttf') format('truetype');
 }
 
+.add-blog {
+    float: right;
+    position: absolute;
+    right: 51px;
+    top: 28px;
+}
+
+.add-blog-title {
+    float: right;
+    position: relative;
+    right: 51px;
+    top: 450px;
+}
+
 .new_font_size {
     font-size: 15px;
     color: #3c3c3c;
@@ -26,7 +40,6 @@ h2 {
     left: 242px;
     font-family: "Righteous",cursive;
 }
-
 
 .heading {
     color: midnightblue;
@@ -49,21 +62,18 @@ h2 {
     font-family: 'Varela Round', sans-serif;
 }
 
-
 .details-blog-body {
-    text-align: center;
-    color: #245269;
     font-size: 2em;
-    line-height: 1.5;
+    line-height: 1.8;
     font-family: 'Varela Round', sans-serif;
     margin-left: 300px;
     margin-right: 300px;
+    display: block;
 }
 
 .entry-summary {
     margin-left: 300px;
     margin-right: 300px;
-    text-align: center;
     font-size: 20px;
     font-family: 'Varela Round', sans-serif;
     font-weight: normal;
