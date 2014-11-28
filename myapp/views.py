@@ -54,11 +54,12 @@ class view_blog_category(TemplateView):
         obj = Blog.objects.filter(slug=context.get('slug'))
         context['obj'] = obj[0]
         return self.response_class(
-            request = self.request,
-            template = self.get_template_names(),
-            context = context,
+            request=self.request,
+            template=self.get_template_names(),
+            context=context,
             **response_kwargs
         )
+
 
 class add_new_blog(FormView):
     template_name = "Blog_entry.html"
@@ -72,8 +73,6 @@ class add_new_blog(FormView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        import pdb
-        pdb.set_trace()
         if form.is_valid():
             first_name = form.cleaned_data['first_name']
             title = form.cleaned_data['title']
