@@ -1,21 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+
+    <style type="text/css" title="currentStyle">
+			@import "{% get_static_prefix %}css/bootstrap.min.css";
+{#		    @import "{% get_static_prefix %}css/bootstrap-theme.min.css";#}
+{#		    @import "{% get_static_prefix %}js/jquery-2.1.1.min.js";#}
+		    @import "{% get_static_prefix %}js/bootstrap.min.js";
+		    @import "{% get_static_prefix %}css/style.css";
+	</style>
+
     <title></title>
 </head>
-<body>
+<body><center>
     <h1> Write about your Blog here!! </h1>
-    <form method="post" action="/addblog"> {% csrf_token %}
-
-        <p class="text-justify">{{ form.first_name }}</p>
-        <p class="text-justify">{{ form.title }}</p>
-        <p class="text-justify">{{ form.category }}</p>
-        <p class="text-justify">{{ form.body }}</p>
-
+    <form method="post" action="/addblog/"> {% csrf_token %}
+        <div class="input-group all-same-look">
+        <p class="text-justify firstname-look">{{ form.first_name }}</p>
+        <p class="text-justify title-look">{{ form.title }}</p>
+        <p class="text-justify category-look">{{ form.category }}</p>
+        <p class="text-justify body-look">{{ form.body }}</p>
+        </div>
+        <div class="button-look">
         <button type="submit" value="Add Blog" class="btn btn-success"> ADD BLOG </button>
-        <button> CANCEL </button>
-    </form>
+        <a href="{% url 'index' %}" class="btn btn-danger"> CANCEL </a>
+        </div>
+    </form></center>
 
 </body>
 </html>

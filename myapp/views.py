@@ -4,7 +4,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 import datetime
 from django.views.generic import TemplateView, FormView
 from myapp.forms import BlogForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 
 def index(request):
@@ -25,9 +26,11 @@ def index(request):
     #     datetime.timedelta(date_now - obj)
     #
     # print op1
+    op2 = Blog.objects.all().order_by('-posted')
     return render_to_response('index.html', {
         'categories': Category.objects.all()[:],
-        'posts': op1
+        'posts': op1,
+        op2
     })
 
 
@@ -73,11 +76,20 @@ class add_new_blog(FormView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+
         if form.is_valid():
             first_name = form.cleaned_data['first_name']
             title = form.cleaned_data['title']
             category = form.cleaned_data['category']
             body = form.cleaned_data['body']
 
-            blog = Blog.objects.create(first_name=first_name, title=title, category=category, body=body)
-            return HttpResponse("yes")
+            slug = title.replace(" ", "-")
+            blog = Blog.objects.create(first_name=first_name, title=title, category=category, body=body, slug=slug)
+
+            return HttpResponseRedirect(reverse("index"))
+
+        else:
+
+            form_class = self.get_form_class()
+            form = self.get_form(form_class)
+            return self.render_to_response(self.get_context_data(form=form))

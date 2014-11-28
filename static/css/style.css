@@ -12,9 +12,37 @@ h2 {
   src: local('../fonts/Righteous-Regular.ttf') format('truetype');
 }
 
+.all-same-look {
+    text-align: center;
+    /*padding-top: 65px;*/
+}
+
+.firstname-look {
+    padding-top: 50px;
+    left: 300px;
+}
+
+.title-look {
+    padding-top: 65px;
+    left: 300px;
+}
+
+.category-look {
+    padding-top: 65px;
+}
+
+.body-look {
+    padding-top: 40px;
+}
+
+.button-look {
+    padding-top: 50px;
+    width: 190px
+}
+
 .add-blog {
     float: right;
-    position: absolute;
+    position: fixed;
     right: 51px;
     top: 28px;
 }

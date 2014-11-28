@@ -13,7 +13,7 @@ v1_api.register(EntryResource())
 
 
 urlpatterns = patterns('',
-                       url(r'^$', index),
+                       url(r'^$', index, name='index'),
                        url(r'^blog/(?P<slug>[^\.]+)', view_blog_category.as_view(), name='view_blog_post'),
                        #url(r'^blog/category/(?P<slug>[^\.]+)', 'view_category', name='view_blog_category'),
                        url(r'^admin/', include(admin.site.urls)),
