@@ -26,11 +26,10 @@ def index(request):
     #     datetime.timedelta(date_now - obj)
     #
     # print op1
-    op2 = Blog.objects.all().order_by('-posted')
+    # op2 = Blog.objects.all().order_by('-posted')
     return render_to_response('index.html', {
         'categories': Category.objects.all()[:],
         'posts': op1,
-        op2
     })
 
 
