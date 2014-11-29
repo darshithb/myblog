@@ -17,3 +17,8 @@ class BlogForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
         self.fields['slug'].required = False
+
+#
+# class SignUpForm(forms.ModelForm):
+#     class Meta:
+#         model

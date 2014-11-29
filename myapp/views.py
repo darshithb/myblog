@@ -1,10 +1,10 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from myapp.models import Blog, Category
 from django.shortcuts import render_to_response, get_object_or_404
 import datetime
 from django.views.generic import TemplateView, FormView
 from myapp.forms import BlogForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 
