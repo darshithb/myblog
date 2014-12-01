@@ -44,7 +44,20 @@ h2 {
     float: right;
     position: fixed;
     right: 51px;
+    top: 80px;
+}
+
+.add-user {
+    float: right;
+    position: fixed;
+    right: 51px;
     top: 28px;
+    width: 111px;
+}
+
+.signup-body {
+    background: url("../images/easy.jpg");
+    /*background: transparent;*/
 }
 
 .add-blog-title {

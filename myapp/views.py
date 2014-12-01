@@ -3,14 +3,14 @@ from myapp.models import Blog, Category
 from django.shortcuts import render_to_response, get_object_or_404
 import datetime
 from django.views.generic import TemplateView, FormView
-from myapp.forms import BlogForm
+from myapp.forms import BlogForm, SignUpForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 
 def index(request):
 
-    form = BlogForm(request.POST or None)
+    # form = BlogForm(request.POST or None)
 
     dt = Blog.objects.all()
     now = datetime.datetime.now()
@@ -88,7 +88,68 @@ class add_new_blog(FormView):
             return HttpResponseRedirect(reverse("index"))
 
         else:
-
             form_class = self.get_form_class()
             form = self.get_form(form_class)
             return self.render_to_response(self.get_context_data(form=form))
+
+
+class SignUpView(FormView):
+
+    template_name = 'signup.html'
+    form_class = SignUpForm
+
+    def post(self, request, *args, **kwargs):
+        """
+        Would help to validate user and login the user.
+        """
+
+        data = {}
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            data['first_name'] = form.cleaned_data['first_name']
+            data['last_name'] = form.cleaned_data['last_name']
+            data['email'] = form.cleaned_data['email']
+            data['username'] = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            password_cnf = form.cleaned_data['password_cnf']
+
+            if password == password_cnf:
+                try:
+                    data['password'] = make_password(password, salt="kitchen")
+                    user = User.objects.create(**data)
+                except:
+                    import sys
+                    print sys.exc_value
+                    user.delete()
+                    messages.error(request, "Something went wrong. Please try again.")
+                    return self.form_invalid(form)
+
+            else:
+                messages.error(request, "Passwords did not match.")
+                return self.form_invalid(form)
+
+            if user is not None:
+                user = authenticate(username=data['username'], password=password)
+                login(request, user)
+                request.session['USER_ID'] = user.pk
+                request.session['USER_NAME'] = user.first_name
+
+                return HttpResponseRedirect(reverse('dashboard'))
+            messages.error(request, "Wrong username and Password combination.")
+            return self.form_invalid(form)
+
+        else:
+            return self.form_invalid(form)
+
+    def get(self, request, *args, **kwargs):
+
+        if request.session.get('USER_ID', ''):
+            next = reverse('index')
+
+            if next is not None:
+                return HttpResponseRedirect(next)
+
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
