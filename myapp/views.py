@@ -3,9 +3,13 @@ from myapp.models import Blog, Category
 from django.shortcuts import render_to_response, get_object_or_404
 import datetime
 from django.views.generic import TemplateView, FormView
-from myapp.forms import BlogForm, SignUpForm
+from myapp.forms import *
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.models import make_password
 
 
 def index(request):
@@ -27,8 +31,9 @@ def index(request):
     #
     # print op1
     # op2 = Blog.objects.all().order_by('-posted')
+    # moment.utc(obj.posted).local().format()
     return render_to_response('index.html', {
-        'categories': Category.objects.all()[:],
+        'categories': Category.objects.all()[:5],
         'posts': op1,
     })
 
@@ -93,6 +98,48 @@ class add_new_blog(FormView):
             return self.render_to_response(self.get_context_data(form=form))
 
 
+class LoginView(FormView):
+
+    template_name = 'login.html'
+    form_class = LoginForm
+
+    def post(self, request, *args, **kwargs):
+        """
+        Would help to validate user and login the user.
+        """
+
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                request.session['USER_ID'] = user.pk
+                request.session['USER_NAME'] = user.first_name
+
+                return HttpResponseRedirect(reverse('index'))
+            messages.error(request, "Wrong username and Password combination.")
+            return self.form_invalid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get(self, request, *args, **kwargs):
+
+        if request.session.get('USER_ID', ''):
+            next = reverse('index')
+
+            if next is not None:
+                return HttpResponseRedirect(next)
+
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
+
 class SignUpView(FormView):
 
     template_name = 'signup.html'
@@ -105,7 +152,8 @@ class SignUpView(FormView):
 
         data = {}
         form = self.form_class(request.POST)
-
+        # import pdb
+        # pdb.set_trace()
         if form.is_valid():
             data['first_name'] = form.cleaned_data['first_name']
             data['last_name'] = form.cleaned_data['last_name']
@@ -116,12 +164,12 @@ class SignUpView(FormView):
 
             if password == password_cnf:
                 try:
-                    data['password'] = make_password(password, salt="kitchen")
+                    data['password'] = make_password(password, salt="blog")
                     user = User.objects.create(**data)
                 except:
                     import sys
                     print sys.exc_value
-                    user.delete()
+                    # user.delete()
                     messages.error(request, "Something went wrong. Please try again.")
                     return self.form_invalid(form)
 
@@ -135,7 +183,7 @@ class SignUpView(FormView):
                 request.session['USER_ID'] = user.pk
                 request.session['USER_NAME'] = user.first_name
 
-                return HttpResponseRedirect(reverse('dashboard'))
+                return HttpResponseRedirect(reverse('index'))
             messages.error(request, "Wrong username and Password combination.")
             return self.form_invalid(form)
 

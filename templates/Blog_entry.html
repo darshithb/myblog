@@ -12,9 +12,14 @@
 		    @import "{% get_static_prefix %}css/style.css";
 	</style>
 
-    <title></title>
+    <title>
+            {% block title %}
+                    Add New Blog
+            {% endblock %}
+        </title>
+
 </head>
-<body><center>
+<body class="signup"><center>
     <h1> Write about your Blog here!! </h1>
     <form method="post" action="/addblog/"> {% csrf_token %}
         <div class="input-group all-same-look">

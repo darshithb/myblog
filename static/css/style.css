@@ -37,7 +37,7 @@ h2 {
 
 .button-look {
     padding-top: 50px;
-    width: 190px
+    width: 190px;
 }
 
 .add-blog {
@@ -47,17 +47,35 @@ h2 {
     top: 80px;
 }
 
+.user-login {
+    float: left;
+    position: absolute;
+    left: 51px;
+    top: 88px;
+    width: 111px;
+}
+
 .add-user {
-    float: right;
-    position: fixed;
-    right: 51px;
+    float: left;
+    position: absolute;
+    left: 51px;
     top: 28px;
     width: 111px;
 }
 
-.signup-body {
-    background: url("../images/easy.jpg");
-    /*background: transparent;*/
+#myForm input {
+    width: 20%;
+    height: 25%;
+}
+
+.signup {
+    background: url('http://www.eizoglobal.com/library/basics/difference_in_image_quality/25b.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .add-blog-title {

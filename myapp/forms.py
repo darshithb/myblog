@@ -19,6 +19,17 @@ class BlogForm(forms.ModelForm):
         self.fields['slug'].required = False
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'text',
+                                                                            'placeholder': 'Enter your username',
+                                                                            'class': 'span'
+    }))
+    password = forms.CharField(required=True, max_length=20, widget=forms.TextInput(attrs={'type': 'password',
+                                                                                           'placeholder': 'Password',
+                                                                                           'class': 'span'
+    }))
+
+
 class SignUpForm(forms.Form):
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={
