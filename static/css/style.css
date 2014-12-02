@@ -55,6 +55,10 @@ h2 {
     width: 111px;
 }
 
+.header div span{
+	color: #5379fa !important;
+}
+
 .add-user {
     float: left;
     position: absolute;

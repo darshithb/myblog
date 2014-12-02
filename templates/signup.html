@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+      <meta charset="UTF-8">
+
+        <title>
+            {% block title %}
+                Blog : Sign Up
+            {% endblock %}
+        </title>
+
+
+        <style type="text/css" title="currentStyle">
+            @import "{% get_static_prefix %}css/style.css";
+            @import "{% get_static_prefix %}css/bootstrap.min.css";
+        </style>
+
+        <script src="js/prefixfree.min.js"></script>
+
+    </head>
+
+<body class="all-same-look signup"><center>
+
+  <div class="body container-fluid">
+        <label class="signup"><a href="{% url 'login' %}">Go back to Login</a></label>
+		<div class="grad"></div>
+        <div class="row-fluid main-field">
+
+
+            <div class="header">
+                <div class="welcome"><h1>Welcome to a new <span> Blogging </span> experience </h1></div>
+            </div>
+            <br>
+{#            <form class="login col-md-6" name="myForm" id="myForm" action="/" method="post">#}
+{#                {% csrf_token %}#}
+{#                <div>#}
+{#                    {% if messages %}#}
+{#                            {% for message in messages %}#}
+{#                                <div class="alert alert-{{message.tags}}">#}
+{#                                {{ message }}#}
+{#                                <a class="close">×</a>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#                <p>{{ form.username }}</p>#}
+{#                <p>{{ form.password }}</p>#}
+{##}
+{#                <p class="submit">#}
+{#                    <input name="wp-submit" id="wp-submit" class="btn" value="Log In" tabindex="100" type="submit">#}
+{#                </p>#}
+{##}
+{#            </form>#}
+            <form name="myForm" action="/signup/" class="login" method="post">
+                {% csrf_token %}
+{#                <div>#}
+{#                    {% if messages %}#}
+{#                            {% for message in messages %}#}
+{#                                <div class="alert alert-{{message.tags}}">#}
+{#                                {{ message }}#}
+{#                                <a class="close">×</a>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+                <div id="myForm">
+                <p class="firstname-look">{{ form.first_name }}</p>
+                <p class="firstname-look">{{ form.last_name }}</p>
+                <p class="firstname-look">{{ form.username }}</p>
+                <p class="firstname-look">{{ form.email }}</p>
+                <p class="firstname-look">{{ form.password }}</p>
+                <p class="firstname-look">{{ form.password_cnf }}</p>
+                </div>
+                <p class="submit firstname-look">
+                    <input name="wp-submit" id="wp-submit" class="btn btn-success" value="SIGN UP" type="submit">
+                    <a href="{% url 'index' %}" class="btn btn-danger"> CANCEL </a>
+                </p>
+
+            </form>
+        </div>
+  </div>
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+</center>
+</body>
+
+</html>
