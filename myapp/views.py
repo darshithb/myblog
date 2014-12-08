@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from myapp.models import Blog, Category
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 import datetime
 from django.views.generic import TemplateView, FormView
 from myapp.forms import *
@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import make_password
 
 
@@ -37,6 +38,12 @@ def index(request):
         'categories': Category.objects.all()[:5],
         'posts': op1,
     })
+
+
+# def thanks(request):
+#     template_name='thanks.html'
+#     pass
+
 
 
 def view_post(request, slug):
@@ -75,18 +82,18 @@ class add_new_blog(FormView):
 
     def get(self, request, *args, **kwargs):
 
-        # form = self.form_class(request.POST)
-        #
+        form = self.form_class(request.POST)
+
         # username = form.cleaned_data['username']
         # password = form.cleaned_data['password']
-        #
-        # user = authenticate(username=usernamekt, password=password)
-        #
+
+        # user = authenticate(username=username, password=password)
+
         # if user is not None:
         #     login(request, user)
         #     request.session['USER_ID'] = user.pk
         #     request.session['USER_NAME'] = user.first_name
-        #
+
         #     return HttpResponseRedirect(reverse('index'))
         # messages.error(request, "Wrong username and Password combination.")
         # return self.form_invalid(form)
@@ -125,7 +132,7 @@ class LoginView(FormView):
         Would help to validate user and login the user.
         """
 
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST or None)
 
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -138,16 +145,20 @@ class LoginView(FormView):
                 request.session['USER_ID'] = user.pk
                 request.session['USER_NAME'] = user.first_name
 
-                return HttpResponseRedirect(reverse('index'))
+                # return HttpResponseRedirect('/thanks/')
+                return HttpResponseRedirect(reverse('dashboard'))
+
             messages.error(request, "Wrong username and Password combination.")
             return self.form_invalid(form)
+
         else:
+            # raise forms.ValidationError("Invalid login")
             return self.form_invalid(form)
 
     def get(self, request, *args, **kwargs):
 
         if request.session.get('USER_ID', ''):
-            next = reverse('index')
+            next = reverse('dashboard')
 
             if next is not None:
                 return HttpResponseRedirect(next)
@@ -218,3 +229,19 @@ class SignUpView(FormView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         return self.render_to_response(self.get_context_data(form=form))
+
+class DashBoardView(TemplateView):
+
+    template_name = 'dashboard.html'
+
+    def render_to_response(self, context, **response_kwargs):
+
+        user_id = self.request.session.get('USER_ID', '')
+        # user = User.objects.get(pk=user_id)
+        context['name']=self.request.session.get('USER_NAME','')
+        return self.response_class(
+            request = self.request,
+            template = self.get_template_names(),
+            context = context,
+            **response_kwargs
+            )
