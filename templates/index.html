@@ -11,6 +11,14 @@
         $(val_id).html(time_diff);
     }
 </script>
+<script>
+    function disp_time(time, val_id){
+        n = {{ post.0.posted }}
+        var now1 = moment();
+        x = now1.diff(n);
+        $(val_id).html(x);
+    }
+</script>
     {% if posts %}
 {#        <ul>{%for post in posts%}<li>{{post.0}}</li>{%endfor%}</ul>#}
         <ul> 
@@ -27,7 +35,7 @@
                             <span>
                                 <span>Posted </span>
                                 <time datetime="3 Days Ago"><i></i>
-                                        <span id="time-{{ post.0.id }}" onload="show_time('{{ post.0.posted }}','#time-{{ post.0.id }}');"></span> Ago
+                                        <span id="time-{{ post.0.id }}" onload="disp_time('{{ post.0.posted }}','#time-{{ post.0.id }}');"></span> Ago
                                 </time>
                             </span>
                         </a>
