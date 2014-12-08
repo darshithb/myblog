@@ -21,6 +21,20 @@
         <script type="text/javascript" src="{% get_static_prefix %}js/jquery-2.1.1.min.js"></script>
     </head>
     <body>
+{##}
+{#        {% include 'body-navbar.html' %}#}
+{#            <div class="row-fluid">#}
+{#                <div class="span12"><br>#}
+{#                    <div class="content-border"><br>#}
+{#                            <div class="container-pad">#}
+{#                            {% block home-marquee %}#}
+{#                                <h2> HOME-MARQUEE </h2>#}
+{#                            {% endblock %}#}
+{#                            </div><br><br>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+
 
            <a href="{% url 'add_blog' %}" class="btn btn-info add-blog"> + ADD BLOG </a>
            <a href="{% url 'signup' %}" class="btn btn-info add-user"> + SIGN UP </a>

@@ -17,6 +17,7 @@ def index(request):
     # form = BlogForm(request.POST or None)
 
     dt = Blog.objects.all()
+    op2 = dt.order_by('-posted')
     now = datetime.datetime.now()
     now = datetime.date(now.year, now.month, now.day)
     op1 = []
@@ -73,6 +74,22 @@ class add_new_blog(FormView):
     form_class = BlogForm
 
     def get(self, request, *args, **kwargs):
+
+        # form = self.form_class(request.POST)
+        #
+        # username = form.cleaned_data['username']
+        # password = form.cleaned_data['password']
+        #
+        # user = authenticate(username=usernamekt, password=password)
+        #
+        # if user is not None:
+        #     login(request, user)
+        #     request.session['USER_ID'] = user.pk
+        #     request.session['USER_NAME'] = user.first_name
+        #
+        #     return HttpResponseRedirect(reverse('index'))
+        # messages.error(request, "Wrong username and Password combination.")
+        # return self.form_invalid(form)
 
         form_class = self.get_form_class()
         form = self.get_form(form_class)
