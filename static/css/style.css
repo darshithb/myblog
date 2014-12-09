@@ -17,6 +17,10 @@ h2 {
     /*padding-top: 65px;*/
 }
 
+.bold{
+    font-weight: bold;
+}
+
 .firstname-look {
     padding-top: 50px;
     left: 300px;
