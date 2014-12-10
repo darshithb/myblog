@@ -31,10 +31,21 @@ $(document).ready(function(){
 });
 
 
+function show_time(time,val_id){
+        var now = moment();
+        var time_diff = moment(time, "YYYYMMDD").fromNow();
+        // alert(time_diff);
+        console.log(time_diff,time,val_id);
+        $(val_id).html(time_diff);
+}
+
+
+
 function ShowSelection()
 {
   var textComponent = document.getElementById('body-blog');
   var selectedText;
+  alert(textComponent);
   // IE version
   if (document.selection != undefined)
   {
