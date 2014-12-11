@@ -13,7 +13,7 @@
 	</style>
     <script type="text/javascript" src="{% get_static_prefix %}js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="{% get_static_prefix %}js/blog_func.js"></script>
-    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="{% get_static_prefix %}ckeditor/ckeditor.js"></script>
     <script type="text/javascript">CKEDITOR.replace( 'blog-body' );</script>
     
 
@@ -32,8 +32,8 @@
         <p class="text-justify title-look">{{ form.title }}</p>
         <p class="text-justify category-look">{{ form.category }}</p>
         <p class="text-justify body-look embolden">{{ form.body }}
-            <center><a href="#" class="btn btn-default btn-sm btn-pos-B" id="buttonB"><b> B </b></a>
-            <a href="#" class="btn btn-default btn-sm"><i> I </i></a></center>
+            <!-- <center><a href="#" class="btn btn-default btn-sm btn-pos-B" id="buttonB"><b> B </b></a>
+            <a href="#" class="btn btn-default btn-sm"><i> I </i></a></center> -->
         </p>
         </div>
         <div class="button-look">

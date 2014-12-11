@@ -13,7 +13,6 @@ v1_api.register(EntryResource())
 
 
 urlpatterns = patterns('',
-                       # url(r'^$', LoginView.as_view(), name='login'),
                        url(r'^$', index, name='index'),
                        url(r'^blog/(?P<slug>[^\.]+)', view_blog_category.as_view(), name='view_blog_post'),
                        #url(r'^blog/category/(?P<slug>[^\.]+)', 'view_category', name='view_blog_category'),
@@ -23,7 +22,6 @@ urlpatterns = patterns('',
                        url(r'^signup/', SignUpView.as_view(), name='signup'),
                        url(r'^dashboard/', DashBoardView.as_view(), name='dashboard'),
                        url(r'^login$', LoginView.as_view(), name='login'),
-                       # url(r'^thanks/', thanks , name= 'thanks'),
                        url(r'^api/', include(v1_api.urls)),
                        url(r'^logout$', 'django.contrib.auth.views.logout', {"next_page":"/"}, name='logout'),
                        url(r'^addblog/', add_new_blog.as_view(), name='add_blog')

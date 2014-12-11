@@ -23,11 +23,17 @@
 
 // });
 
-$(document).ready(function(){
-	$(document).on('click', '#buttonB', function(){
-		ShowSelection();
-	});
+// $(document).ready(function(){
+// 	$(document).on('click', '#buttonB', function(){
+// 		ShowSelection();
+// 	});
+// });
 
+
+$(document).ready(function(){
+  $(document).on('pageload', '#time-{{ post.0.id }}', function(){
+    show_time();
+  });
 });
 
 
@@ -41,27 +47,27 @@ function show_time(time,val_id){
 
 
 
-function ShowSelection()
-{
-  var textComponent = document.getElementById('body-blog');
-  var selectedText;
-  alert(textComponent);
-  // IE version
-  if (document.selection != undefined)
-  {
-    textComponent.focus();
-    var sel = document.selection.createRange();
-    selectedText = sel.text;
-  }
-  // Mozilla version
-  else if (textComponent.selectionStart != undefined)
-  {
-    var startPos = textComponent.selectionStart;
-    var endPos = textComponent.selectionEnd;
-    selectedText = textComponent.value.substring(startPos, endPos);
-  }
-  alert("You selected: " + selectedText);
-}
+// function ShowSelection()
+// {
+//   var textComponent = document.getElementById('body-blog');
+//   var selectedText;
+//   alert(textComponent);
+//   // IE version
+//   if (document.selection != undefined)
+//   {
+//     textComponent.focus();
+//     var sel = document.selection.createRange();
+//     selectedText = sel.text;
+//   }
+//   // Mozilla version
+//   else if (textComponent.selectionStart != undefined)
+//   {
+//     var startPos = textComponent.selectionStart;
+//     var endPos = textComponent.selectionEnd;
+//     selectedText = textComponent.value.substring(startPos, endPos);
+//   }
+//   alert("You selected: " + selectedText);
+// }
 
 
 // document.execCommand('bold');

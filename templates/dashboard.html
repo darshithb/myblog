@@ -14,7 +14,7 @@
 
 		<style type="text/css" title="currentStyle">
 			@import "{% get_static_prefix %}css/bootstrap.min.css";
-{#		    @import "{% get_static_prefix %}css/bootstrap-theme.min.css";#}
+		    @import "{% get_static_prefix %}css/bootstrap-theme.min.css";
 		    /*@import "{% get_static_prefix %}js/jquery-2.1.1.min.js";
 		    @import "{% get_static_prefix %}js/bootstrap.min.js";*/
             @import "{% get_static_prefix %}js/bootstrap.js";
@@ -28,7 +28,11 @@
 
 
 <body>
-<h1> Welcome {{user.first_name}} </h1>
+    <h1>
+    <!-- {% if user.is_authenticated %} -->
+    <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+<!-- {% endif %}</h1> --></h1>
+<!-- <h1> Welcome {{request.user.username}} </h1> -->
 </body>
 
 <a href="{% url 'add_blog' %}" class="btn btn-info add-blog"> + ADD BLOG </a>

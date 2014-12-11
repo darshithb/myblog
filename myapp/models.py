@@ -10,6 +10,10 @@ class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, db_index=True)
 
+    class Meta:
+        verbose_name_plural = "categories"
+
+
     def __unicode__(self):
         return '%s' % self.title
 
@@ -40,6 +44,10 @@ class Entry(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     body = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "entries"
+
 
     def __unicode__(self):
         return self.title

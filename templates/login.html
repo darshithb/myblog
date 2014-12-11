@@ -18,7 +18,7 @@
             @import "{% get_static_prefix %}css/bootstrap.min.css";
         </style>
 
-        <script src="{% get_static_prefix %}js/prefixfree.min.js"></script>
+        <!-- script src="{% get_static_prefix %}js/prefixfree.min.js"></script --> 
 
     </head>
 
@@ -34,21 +34,12 @@
                 <div class="welcome"><h1>Welcome to a new <span> Blogging </span> experience</h1></div>
             </div>
             <br>
-            <form class="login" name="myForm" action="/" method="post">
+            <form class="login" name="myForm" action="{% url 'login' %}" method="post">
                 <div id="myForm">
                 {% csrf_token %}
-                <!-- {% if form.non_field_errors %}
-                    <ul class='form-errors'>
-                        {% for error in form.non_field_errors %}
-                            <li>{{error}}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %} -->
-
-
                 <div>
                     {% if messages %}
-                            {% for message in messages.error %}
+                            {% for message in messages %}
                                 <div class="alert alert-{{message.tags}}">
                                 {{ message }}
                                 <a class="close">×</a>

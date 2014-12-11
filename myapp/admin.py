@@ -9,11 +9,11 @@ class BlogAdmin(admin.ModelAdmin):
     exclude = ['posted']
     prepopulated_fields = {'slug': ('title',)}
 
- #    formfield_overrides = {models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})},}
-	# list_display= ['title']
+  #   formfield_overrides = {models.TextField: {'widget': forms.Textarea(attrs={'class': 'ckeditor'})},}
+  #   list_display= ['title']
 
-	# class Media():
-	# 	js = ('ckeditor/ckeditor.js',)
+  #   class Media():
+		# js = ('ckeditor/ckeditor.js',)
 
 
     def __init__(self, model, admin_site):
@@ -34,8 +34,6 @@ class EntryAdmin(admin.ModelAdmin):
 
 	class Media():
 		js = ('ckeditor/ckeditor.js',)
-
-
 
 admin.site.register(Entry, EntryAdmin)
 admin.site.register(Blog, BlogAdmin)

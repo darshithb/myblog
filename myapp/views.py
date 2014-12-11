@@ -2,6 +2,7 @@
 from myapp.models import Blog, Category
 from django.shortcuts import render_to_response, get_object_or_404, render
 import datetime
+import arrow
 from django.views.generic import TemplateView, FormView
 from myapp.forms import *
 from django.http import HttpResponseRedirect
@@ -17,13 +18,18 @@ def index(request):
 
     # form = BlogForm(request.POST or None)
 
-    dt = Blog.objects.all()
-    op2 = dt.order_by('-posted')
-    now = datetime.datetime.now()
-    now = datetime.date(now.year, now.month, now.day)
+    
+    all_blog = Blog.objects.all()
+    all_blog = all_blog.order_by('-posted')
+    # now = datetime.datetime.now()
+
+    utc = arrow.utcnow()
+    time_z = utc.to('local')
+
+    # now = datetime.date(now.year, now.month, now.day)
     op1 = []
-    for obj in dt:
-        diff = now - obj.posted
+    for obj in all_blog:
+        diff = time_z.replace(day=obj.posted.day, month=obj.posted.month,year=obj.posted.year).humanize()
         op1.append([obj, str(diff)])
 
     #     date_now = datetime.datetime.now()
@@ -32,18 +38,11 @@ def index(request):
     #     datetime.timedelta(date_now - obj)
     #
     # print op1
-    # op2 = Blog.objects.all().order_by('-posted')
     # moment.utc(obj.posted).local().format()
     return render_to_response('index.html', {
         'categories': Category.objects.all()[:5],
         'posts': op1,
     })
-
-
-# def thanks(request):
-#     template_name='thanks.html'
-#     pass
-
 
 
 def view_post(request, slug):
@@ -83,20 +82,6 @@ class add_new_blog(FormView):
     def get(self, request, *args, **kwargs):
 
         form = self.form_class(request.POST)
-
-        # username = form.cleaned_data['username']
-        # password = form.cleaned_data['password']
-
-        # user = authenticate(username=username, password=password)
-
-        # if user is not None:
-        #     login(request, user)
-        #     request.session['USER_ID'] = user.pk
-        #     request.session['USER_NAME'] = user.first_name
-
-        #     return HttpResponseRedirect(reverse('index'))
-        # messages.error(request, "Wrong username and Password combination.")
-        # return self.form_invalid(form)
 
         form_class = self.get_form_class()
         form = self.get_form(form_class)
@@ -145,7 +130,7 @@ class LoginView(FormView):
                 request.session['USER_ID'] = user.pk
                 request.session['USER_NAME'] = user.first_name
 
-                # return HttpResponseRedirect('/thanks/')
+                return render(request, 'dashboard.html', {'name': request.user.username})
                 return HttpResponseRedirect(reverse('dashboard'))
 
             messages.error(request, "Wrong username and Password combination.")
@@ -245,3 +230,4 @@ class DashBoardView(TemplateView):
             context = context,
             **response_kwargs
             )
+
