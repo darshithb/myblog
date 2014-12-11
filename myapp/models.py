@@ -3,6 +3,7 @@ from tastypie.utils.timezone import now
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
@@ -21,7 +22,7 @@ class Blog(models.Model):
     first_name = models.CharField(max_length=40)
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
-    body = models.TextField()
+    body = RichTextField()
     posted = models.DateField(db_index=True, auto_now_add=True)
     category = models.ForeignKey(Category)
 

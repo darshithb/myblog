@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    'tastypie'
+    'tastypie',
+    'ckeditor'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -95,3 +96,5 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = ''
 TEMPLATE_DIRS = ( os.path.join(BASE_DIR, 'templates'),)
+
+CKEDITOR_UPLOAD_PATH = "uploads/"

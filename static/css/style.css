@@ -56,6 +56,12 @@ h2 {
     top: 80px;
 }
 
+div>.cke_chrome {
+    width: 100%;
+    padding: 0!important;
+    clear: both;
+}
+
 .user-login {
     float: left;
     position: absolute;

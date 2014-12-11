@@ -2,6 +2,7 @@ __author__ = 'darshithb'
 
 from django import forms
 from .models import Blog
+from ckeditor.widgets import CKEditorWidget
 
 
 class BlogForm(forms.ModelForm):
@@ -13,6 +14,8 @@ class BlogForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'placeholder': "Enter Title", 'class': 'form-control'}),
             'body': forms.Textarea(attrs={'placeholder': "Enter Body", 'id': 'blog-body', 'class': 'form-control'}),
         }
+
+        body = forms.CharField(widget=CKEditorWidget())
 
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
