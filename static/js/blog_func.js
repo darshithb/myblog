@@ -30,20 +30,20 @@
 // });
 
 
-$(document).ready(function(){
-  $(document).on('pageload', '#time-{{ post.0.id }}', function(){
-    show_time();
-  });
-});
+// $(document).ready(function(){
+//   $(document).on('pageload', '#time-{{ post.0.id }}', function(){
+//     show_time();
+//   });
+// });
 
 
-function show_time(time,val_id){
-        var now = moment();
-        var time_diff = moment(time, "YYYYMMDD").fromNow();
-        // alert(time_diff);
-        console.log(time_diff,time,val_id);
-        $(val_id).html(time_diff);
-}
+// function show_time(time,val_id){
+//         var now = moment();
+//         var time_diff = moment(time, "YYYYMMDD").fromNow();
+//         // alert(time_diff);
+//         console.log(time_diff,time,val_id);
+//         $(val_id).html(time_diff);
+// }
 
 
 
