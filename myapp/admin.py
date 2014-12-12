@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import models
 from django import forms
 
-
 class BlogAdmin(admin.ModelAdmin):
     exclude = ['posted']
     prepopulated_fields = {'slug': ('title',)}

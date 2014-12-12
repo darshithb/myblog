@@ -6,6 +6,9 @@ from ckeditor.widgets import CKEditorWidget
 
 
 class BlogForm(forms.ModelForm):
+
+    first_name = forms.CharField(max_length=20, required=False)
+
     class Meta:
         model = Blog
 
@@ -20,7 +23,7 @@ class BlogForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
         self.fields['slug'].required = False
-
+        self.fields['first_name'].widget = forms.HiddenInput()
 
 class LoginForm(forms.Form):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'text',

@@ -89,9 +89,12 @@ class add_new_blog(FormView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+        # import pdb
+        # pdb.set_trace()
 
         if form.is_valid():
-            first_name = form.cleaned_data['first_name']
+
+            first_name = request.session.get('USER_NAME')
             title = form.cleaned_data['title']
             category = form.cleaned_data['category']
             body = form.cleaned_data['body']

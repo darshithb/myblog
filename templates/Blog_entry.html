@@ -28,16 +28,18 @@
     <h1> Write about your Blog here!! </h1>
     <form method="post" action="/addblog/"> {% csrf_token %}
         <div class="input-group all-same-look">
-        <p class="text-justify firstname-look">{{ form.first_name }}</p>
+        <!-- <p>  </p> -->
+        {{forms.first_name}}
         <p class="text-justify title-look">{{ form.title }}</p>
         <p class="text-justify category-look">{{ form.category }}</p>
         <p class="text-justify body-look embolden">{{ form.body }}
+        <p class="text-justify firstname-look">This blog will be registered under the user <b>"{{ user.get_username }}"</b></p>
             <!-- <center><a href="#" class="btn btn-default btn-sm btn-pos-B" id="buttonB"><b> B </b></a>
             <a href="#" class="btn btn-default btn-sm"><i> I </i></a></center> -->
         </p>
         </div>
         <div class="button-look">
-        <button type="submit" value="Add Blog" class="btn btn-success"> ADD BLOG </button>
+        <button type="submit" value="Add Blog" class="btn btn-success"><a href="{% url 'index' %}"> ADD BLOG </a></button>
         <a href="{% url 'index' %}" class="btn btn-danger"> CANCEL </a>
         </div>
     </form></center>

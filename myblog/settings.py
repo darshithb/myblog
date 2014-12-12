@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'myapp',
     'tastypie',
-    'ckeditor'
+    'django_wysiwyg',
+    'ckeditor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,7 +95,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(BASE_DIR, "static")
 TEMPLATE_DIRS = ( os.path.join(BASE_DIR, 'templates'),)
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
+BASE_UPLOAD_PATH = STATIC_ROOT + 'uploads/'
+
+CKEDITOR_UPLOAD_PATH = BASE_UPLOAD_PATH
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
