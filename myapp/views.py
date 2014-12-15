@@ -29,7 +29,7 @@ def index(request):
     # now = datetime.date(now.year, now.month, now.day)
     op1 = []
     for obj in all_blog:
-        diff = time_z.replace(day=obj.posted.day, month=obj.posted.month,year=obj.posted.year).humanize()
+        diff = time_z.replace(second= obj.posted.second, minute= obj.posted.minute, hour= obj.posted.hour, day=obj.posted.day, month=obj.posted.month,year=obj.posted.year).humanize()
         op1.append([obj, str(diff)])
 
     #     date_now = datetime.datetime.now()
