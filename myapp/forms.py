@@ -25,6 +25,7 @@ class BlogForm(forms.ModelForm):
         self.fields['slug'].required = False
         self.fields['first_name'].widget = forms.HiddenInput()
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'text',
                                                                             'placeholder': 'Enter your username',

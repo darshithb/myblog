@@ -10,7 +10,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import make_password
 
 
@@ -18,27 +17,17 @@ def index(request):
 
     # form = BlogForm(request.POST or None)
 
-    
     all_blog = Blog.objects.all()
     all_blog = all_blog.order_by('-posted')
-    # now = datetime.datetime.now()
 
     utc = arrow.utcnow()
     time_z = utc.to('local')
-
-    # now = datetime.date(now.year, now.month, now.day)
     op1 = []
     for obj in all_blog:
-        diff = time_z.replace(second= obj.posted.second, minute= obj.posted.minute, hour= obj.posted.hour, day=obj.posted.day, month=obj.posted.month,year=obj.posted.year).humanize()
+        diff = time_z.replace(second=obj.posted.second, minute=obj.posted.minute, hour=obj.posted.hour,
+                              day=obj.posted.day, month=obj.posted.month, year=obj.posted.year).humanize()
         op1.append([obj, str(diff)])
 
-    #     date_now = datetime.datetime.now()
-    #     diff = date_now.year, date_now.month, date_now.day
-    #     obj = dt.posted
-    #     datetime.timedelta(date_now - obj)
-    #
-    # print op1
-    # moment.utc(obj.posted).local().format()
     return render_to_response('index.html', {
         'categories': Category.objects.all()[:5],
         'posts': op1,
@@ -95,12 +84,14 @@ class add_new_blog(FormView):
         if form.is_valid():
 
             first_name = request.session.get('USER_NAME')
+            user = request.session.get('USER_ID')
             title = form.cleaned_data['title']
             category = form.cleaned_data['category']
             body = form.cleaned_data['body']
-
             slug = title.replace(" ", "-")
-            blog = Blog.objects.create(first_name=first_name, title=title, category=category, body=body, slug=slug)
+
+            blog = Blog.objects.create(first_name=first_name, title=title, category=category,
+                                       body=body, slug=slug, user=user)
 
             return HttpResponseRedirect(reverse("index"))
 
@@ -140,7 +131,6 @@ class LoginView(FormView):
             return self.form_invalid(form)
 
         else:
-            # raise forms.ValidationError("Invalid login")
             return self.form_invalid(form)
 
     def get(self, request, *args, **kwargs):
@@ -218,19 +208,30 @@ class SignUpView(FormView):
         form = self.get_form(form_class)
         return self.render_to_response(self.get_context_data(form=form))
 
+
 class DashBoardView(TemplateView):
 
     template_name = 'dashboard.html'
+
+    def filtered_blogs(request, user_id):
+
+        # user_id = request.session.get('USER_ID', '')
+        f_blog = Blog.objects.all().filter(user=user_id)
+        f_blog = f_blog.order_by('-posted')
+
+        return f_blog
 
     def render_to_response(self, context, **response_kwargs):
 
         user_id = self.request.session.get('USER_ID', '')
         # user = User.objects.get(pk=user_id)
-        context['name']=self.request.session.get('USER_NAME','')
+        context['name'] = self.request.session.get('USER_NAME', '')
+        context['blog'] = self.filtered_blogs(user_id)
+
         return self.response_class(
-            request = self.request,
-            template = self.get_template_names(),
-            context = context,
+            request=self.request,
+            template=self.get_template_names(),
+            context=context,
             **response_kwargs
             )
 

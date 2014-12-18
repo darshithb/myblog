@@ -3,7 +3,6 @@ from tastypie.utils.timezone import now
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
-from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
@@ -12,7 +11,6 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "categories"
-
 
     def __unicode__(self):
         return '%s' % self.title
@@ -29,6 +27,7 @@ class Blog(models.Model):
     body = models.TextField()
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
     category = models.ForeignKey(Category)
+    user = models.ForeignKey(User, null=True, blank=True)
 
     def __unicode__(self):
         return '%s' % self.title
@@ -47,7 +46,6 @@ class Entry(models.Model):
 
     class Meta:
         verbose_name_plural = "entries"
-
 
     def __unicode__(self):
         return self.title

@@ -30,10 +30,52 @@
 <body>
     <h1>
     <!-- {% if user.is_authenticated %} -->
-    <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+    <p>Welcome, {{ user.first_name }}. Thanks for logging in.</p>
 <!-- {% endif %}</h1> --></h1>
 <!-- <h1> Welcome {{request.user.username}} </h1> -->
+
+<h2>{{ blog }}</h2>
 </body>
+
+
+{#{% block content %}#}
+{#    {% if posts %}#}
+{#    <!-- <ul>{%for post in posts%}<li>{{post.0}} {{post.1.split.0}}</li>{%endfor%}</ul> -->#}
+{#        <ul>#}
+{##}
+{#        {% for post in posts %}#}
+{##}
+{#            <article>#}
+{#                <p> {{ post.0.slug }}</p>#}
+{#                <header class="entry-header">#}
+{#                    <h1><a href="blog/{{ post.0.slug }}"> {% block title %}{{ post.0 }}{% endblock %}</a></h1>#}
+{##}
+{#                <p class="new_font_size">#}
+{#                    <a sl-processed="1">#}
+{#                        <span>#}
+{#                            <span>Posted </span>#}
+{#                            <time datetime="3 Days Ago"><i></i>#}
+{#                                    <span>{{post.1}}</span>#}
+{#                            </time>#}
+{#                        </span>#}
+{#                    </a>#}
+{#                    <span> by#}
+{#                            <a sl-processed="1">#}
+{#                                {{ post.0.first_name }}#}
+{#                            </a>#}
+{#                    </span>#}
+{#                </p>#}
+{#                </header><!-- .entry-header -->#}
+{##}
+{#                <div class="entry-summary">#}
+{#                    <p><br>{{ post.0.body | safe }} <br>#}
+{#                    </p>#}
+{#                </div><!-- .entry-content -->#}
+{#            </article><!-- #post-## -->#}
+{##}
+{#                </div>#}
+{#        <hr>#}
+{#        </ul>#}
 
 <a href="{% url 'add_blog' %}" class="btn btn-info add-blog"> + ADD BLOG </a>
 

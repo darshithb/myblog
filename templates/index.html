@@ -3,25 +3,6 @@
 {% load static %}
 
 {% block content %}
- <script>
-
-//     function show_time(time,val_id){
-//         var now = moment();
-//         var time_diff = moment(time, "YYYYMMDD").fromNow();
-//         $("[id^='time-']").html('')
-//         // alert(time_diff);
-//         console.log(time_diff,time,val_id);
-//         $(val_id).html(time_diff);
-//     }
-// </script>
- <script>
-//     function disp_time(time, val_id){
-//         n = {{ post.0.posted }}
-//         var now1 = moment();
-//         x = now1.diff(n);
-//         $(val_id).html(x);
-//     }
-// </script>
     {% if posts %}
         <!-- <ul>{%for post in posts%}<li>{{post.0}} {{post.1.split.0}}</li>{%endfor%}</ul> -->
         <ul> 
