@@ -27,7 +27,7 @@ class Blog(models.Model):
     body = models.TextField()
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
     category = models.ForeignKey(Category)
-    user = models.ForeignKey(User, null=True, blank=True)
+    user = models.ForeignKey(User)
 
     def __unicode__(self):
         return '%s' % self.title

@@ -82,16 +82,16 @@ class add_new_blog(FormView):
         if next is not None:
             return HttpResponseRedirect(next)
 
-
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        # import pdb
-        # pdb.set_trace()
+        #import pdb
+        #pdb.set_trace()
 
         if form.is_valid():
 
             first_name = request.session.get('USER_NAME')
             user = request.session.get('USER_ID')
+            user = User.objects.get(pk=user)
             title = form.cleaned_data['title']
             category = form.cleaned_data['category']
             body = form.cleaned_data['body']
@@ -131,7 +131,7 @@ class LoginView(FormView):
                 request.session['USER_ID'] = user.pk
                 request.session['USER_NAME'] = user.first_name
 
-                return render(request, 'dashboard.html', {'name': request.user.username})
+                # return render(request, 'dashboard.html', {'name': request.user.username})
                 return HttpResponseRedirect(reverse('dashboard'))
 
             messages.error(request, "Wrong username and Password combination.")
@@ -241,4 +241,3 @@ class DashBoardView(TemplateView):
             context=context,
             **response_kwargs
             )
-

@@ -31,10 +31,29 @@
     <h1>
     <!-- {% if user.is_authenticated %} -->
     <p>Welcome, {{ user.first_name }}. Thanks for logging in.</p>
-<!-- {% endif %}</h1> --></h1>
+<!-- {% endif %}</h1> -->
+    </h1>
 <!-- <h1> Welcome {{request.user.username}} </h1> -->
 
-<h2>{{ blog }}</h2>
+    <h2>{{ blog }}</h2>
+
+{#    {% if blog %}#}
+{#        <ul>#}
+{#            {% for i in blog %}#}
+{#                <article>#}
+{#                    <p> {{ i.title }} </p>#}
+{#                    <header class="entry-header">#}
+{#                        <h3><a href="blog/{{ i.slug }}"> {% block title %} {{ i }}{% endblock %}</a></h3>#}
+{##}
+{#                    </header>#}
+{##}
+{#                </article>#}
+{##}
+{##}
+{#        </ul>#}
+
+
+
 </body>
 
 
