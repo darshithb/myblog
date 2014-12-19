@@ -72,9 +72,16 @@ class add_new_blog(FormView):
 
         form = self.form_class(request.POST)
 
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        return self.render_to_response(self.get_context_data(form=form))
+        if request.session.get('USER_ID'):
+            form_class = self.get_form_class()
+            form = self.get_form(form_class)
+            return self.render_to_response(self.get_context_data(form=form))
+
+        next = reverse('index')
+
+        if next is not None:
+            return HttpResponseRedirect(next)
+
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
