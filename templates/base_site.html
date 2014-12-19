@@ -12,14 +12,10 @@
 		<style type="text/css" title="currentStyle">
 			@import "{% get_static_prefix %}css/bootstrap.min.css";
 {#		    @import "{% get_static_prefix %}css/bootstrap-theme.min.css";#}
-{#		    @import "{% get_static_prefix %}js/jquery-2.1.1.min.js";#}
 		    @import "{% get_static_prefix %}js/bootstrap.min.js";
 		    @import "{% get_static_prefix %}css/style.css";
-            /*@import "{% get_static_prefix %}js/moment.js";*/
 		</style>
         <script type="text/javascript" src="{% get_static_prefix %}js/jquery-2.1.1.min.js"></script>
-{#        <script type="text/javascript" src="{% get_static_prefix %}js/moment.js"></script>#}
-{#        <script type="text/javascript" src="{% get_static_prefix %}js/blog_func.js"></script>#}
         <script type="text/javascript" src="{% get_static_prefix %}ckeditor/ckeditor.js"></script>
         <script type="text/javascript">CKEDITOR.replace( 'blog-body' );</script>
     </head>
@@ -38,7 +34,7 @@
 {#                </div>#}
 {#            </div>#}
 
-
+{#            {{ if user.first_name  }}#}
            <a href="{% url 'signup' %}" class="btn btn-info add-user"> + SIGN UP </a>
            <a href="{% url 'login' %}" class="btn btn-info user-login"> LOG IN </a>
            

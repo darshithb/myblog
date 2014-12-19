@@ -6,6 +6,10 @@ h2 {
     color: saddlebrown;
 }
 
+h3 {
+    text-align: center;
+}
+
 @font-face {
   font-family: 'Righteous';
   src: url('../fonts/Righteous-Regular.ttf') format('truetype');
