@@ -37,6 +37,16 @@ class Blog(models.Model):
         return ('view_blog_post', None, {'slug': self.slug})
 
 
+class Comment(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
+    post = models.ForeignKey(Blog)
+    author = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return unicode("%s: %s" % self.post, self.body[:100])
+
+
 class Entry(models.Model):
     user = models.ForeignKey(User)
     pub_date = models.DateTimeField(default=now)

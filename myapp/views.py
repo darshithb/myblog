@@ -30,7 +30,7 @@ def index(request):
 
     return render_to_response('index.html', {
         'categories': Category.objects.all()[:5],
-        'posts': op1,
+        'posts': op1, "user": request.session.get('USER_ID')
     })
 
 
@@ -54,8 +54,13 @@ class view_blog_category(TemplateView):
 
     def render_to_response(self, context, **response_kwargs):
         # print context.get('slug')
+
+        # import pdb
+        # pdb.set_trace()
+
         obj = Blog.objects.filter(slug=context.get('slug'))
         context['obj'] = obj[0]
+        context['user'] = self.request.session.get('USER_ID')
         return self.response_class(
             request=self.request,
             template=self.get_template_names(),
@@ -131,7 +136,6 @@ class LoginView(FormView):
                 request.session['USER_ID'] = user.pk
                 request.session['USER_NAME'] = user.first_name
 
-                # return render(request, 'dashboard.html', {'name': request.user.username})
                 return HttpResponseRedirect(reverse('dashboard'))
 
             messages.error(request, "Wrong username and Password combination.")
@@ -240,4 +244,13 @@ class DashBoardView(TemplateView):
             template=self.get_template_names(),
             context=context,
             **response_kwargs
-            )
+        )
+
+
+def delete_blog(request, *args, **kwargs):
+    pass
+    # user = request.session.get('USER_ID', '')
+
+    # if user.first_name == :
+    #     Blog.objects.filter(first_name=request.user).get(pk=id).delete()
+    #     return HttpResponseRedirect(next)

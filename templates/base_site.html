@@ -33,11 +33,14 @@
 {#                    </div>#}
 {#                </div>#}
 {#            </div>#}
-
-{#            {{ if user.first_name  }}#}
+{#            {{ user }}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.hiiiiiiiiiiiiiiiiiiiiiiiiiiiii#}
+            {% if not user or user != 'AnonymousUser'%}
            <a href="{% url 'signup' %}" class="btn btn-info add-user"> + SIGN UP </a>
            <a href="{% url 'login' %}" class="btn btn-info user-login"> LOG IN </a>
-           
+{##}
+            {% else %}
+           <a href="{% url 'dashboard' %}" class="btn btn-info user-login"> DASHBOARD </a>
+           {% endif %}
 {#        <h1>{% block title %}Welcome to my blogs!!{% endblock %}</h1>#}
         {% block content %}
 {#            <script src="http://code.jquery.js"></script>#}

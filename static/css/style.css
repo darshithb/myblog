@@ -66,9 +66,17 @@ div>.cke_chrome {
     clear: both;
 }
 
+.del-button{
+    float: left;
+    /*position: absolute;*/
+    width: 51px;
+    left: 51px;
+}
+
+
 .user-login {
     float: left;
-    position: absolute;
+    position: fixed;
     left: 51px;
     top: 88px;
     width: 111px;

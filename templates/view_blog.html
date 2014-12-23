@@ -14,7 +14,7 @@
                         </span>
 
             	</header><!-- .entry-header -->
-
+        <a href="{% url 'delete_blog' obj.pk %}" class="btn btn-danger glyphicon glyphicon-trash del-button"></a>
         <div class="details-blog-body"><center>
             		<p><br>{{ obj.body | safe }} <br>
                     </p>
