@@ -40,11 +40,11 @@ class Blog(models.Model):
 class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
-    post = models.ForeignKey(Blog)
+    post = models.ForeignKey(Blog, db_index=True)
     author = models.ForeignKey(User)
 
     def __unicode__(self):
-        return unicode("%s: %s" % self.post, self.body[:100])
+        return unicode("%s: %s by %s" % self.post, self.body[:100], self.author)
 
 
 class Entry(models.Model):

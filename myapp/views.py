@@ -3,6 +3,7 @@ from myapp.models import Blog, Category
 from django.shortcuts import render_to_response, get_object_or_404, render
 import datetime
 import arrow
+from django.core.context_processors import csrf
 from django.views.generic import TemplateView, FormView
 from myapp.forms import *
 from django.http import HttpResponseRedirect
@@ -58,15 +59,26 @@ class view_blog_category(TemplateView):
         # import pdb
         # pdb.set_trace()
 
+        form = CommentForm()
+
         obj = Blog.objects.filter(slug=context.get('slug'))
         context['obj'] = obj[0]
         context['user'] = self.request.session.get('USER_ID')
+        context['form'] = form
         return self.response_class(
             request=self.request,
             template=self.get_template_names(),
             context=context,
             **response_kwargs
         )
+
+    def post(self, pk):
+        """Single post with comments and a comment form."""
+        post = Blog.objects.get(pk=int(pk))
+        comments = Comment.objects.filter(post=post)
+        d = dict(post=post, comments=comments, form=CommentForm(), user=self.request.user)
+        d.update(csrf(self.request))
+        return render_to_response("view_blog.html", d)
 
 
 class add_new_blog(FormView):

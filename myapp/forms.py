@@ -1,8 +1,10 @@
 __author__ = 'darshithb'
 
 from django import forms
-from .models import Blog
+from .models import Blog, Comment
 from ckeditor.widgets import CKEditorWidget
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 
 class BlogForm(forms.ModelForm):
@@ -25,6 +27,33 @@ class BlogForm(forms.ModelForm):
         super(BlogForm, self).__init__(*args, **kwargs)
         self.fields['slug'].required = False
         self.fields['first_name'].widget = forms.HiddenInput()
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+
+    def add_comment(request, pk):
+        """Add a new comment."""
+
+        p = request.Post
+
+        if "body" in p and p["body"]:
+            author = "Anonymous"
+
+            if p["author"]:
+                author = p["author"]
+
+            comment = Comment(post=Blog.objects.get(pk=pk))
+            cf = CommentForm(p, instance=comment)
+            cf.fields["author"].required = False
+
+            comment = cf.save(commit=False)
+            comment.author = author
+            comment.save()
+
+        return HttpResponseRedirect(reverse("dbe.blog.views.post", args=[pk]))
 
 
 class LoginForm(forms.Form):
