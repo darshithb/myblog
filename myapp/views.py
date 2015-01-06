@@ -3,6 +3,7 @@ from myapp.models import Blog, Category
 from django.shortcuts import render_to_response, get_object_or_404, render
 import datetime
 import arrow
+from django.forms.models import model_to_dict
 from django.core.context_processors import csrf
 from django.views.generic import TemplateView, FormView
 from myapp.forms import *
@@ -53,18 +54,18 @@ def view_category(request, slug):
 class view_blog_category(TemplateView):
     template_name = "view_blog.html"
 
+    import pdb
+
+
     def render_to_response(self, context, **response_kwargs):
         # print context.get('slug')
 
-        # import pdb
-        # pdb.set_trace()
-
         form = CommentForm()
-
         obj = Blog.objects.filter(slug=context.get('slug'))
         context['obj'] = obj[0]
         context['user'] = self.request.session.get('USER_ID')
         context['form'] = form
+        context['comments']=Comment.objects.filter(post=obj[0])
         return self.response_class(
             request=self.request,
             template=self.get_template_names(),
@@ -72,13 +73,38 @@ class view_blog_category(TemplateView):
             **response_kwargs
         )
 
-    def post(self, pk):
+    # def get(self, request, *args, **kwargs):
+    #
+    #     # form = self.form_class(request.POST)
+    #
+    #     form = CommentForm()
+    #
+    #     obj = Blog.objects.filter(slug=context.get('slug'))
+    #     context['obj'] = obj[0]
+    #     context['user'] = self.request.session.get('USER_ID')
+    #     context['form'] = form
+    #
+    #     if self.request.session.get('USER_ID'):
+    #         # form_class = self.get_form_class()
+    #         # form = self.get_form(form_class)
+    #         return self.render_to_response(self, context=context)
+    #
+    #     next = reverse('index')
+    #
+    #     if next is not None:
+    #         return HttpResponseRedirect(next)
+
+    def post(self, request, pk):
         """Single post with comments and a comment form."""
+
         post = Blog.objects.get(pk=int(pk))
-        comments = Comment.objects.filter(post=post)
-        d = dict(post=post, comments=comments, form=CommentForm(), user=self.request.user)
-        d.update(csrf(self.request))
-        return render_to_response("view_blog.html", d)
+        user_id = self.request.session.get('USER_ID')
+        user = User.objects.get(pk=user_id)
+        body = self.request.POST.get('body')
+        comments = Comment.objects.create(post=post, author=user, body=body)
+
+        d = model_to_dict(post)
+        return self.render_to_response(d)
 
 
 class add_new_blog(FormView):
