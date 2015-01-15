@@ -73,27 +73,6 @@ class view_blog_category(TemplateView):
             **response_kwargs
         )
 
-    # def get(self, request, *args, **kwargs):
-    #
-    #     # form = self.form_class(request.POST)
-    #
-    #     form = CommentForm()
-    #
-    #     obj = Blog.objects.filter(slug=context.get('slug'))
-    #     context['obj'] = obj[0]
-    #     context['user'] = self.request.session.get('USER_ID')
-    #     context['form'] = form
-    #
-    #     if self.request.session.get('USER_ID'):
-    #         # form_class = self.get_form_class()
-    #         # form = self.get_form(form_class)
-    #         return self.render_to_response(self, context=context)
-    #
-    #     next = reverse('index')
-    #
-    #     if next is not None:
-    #         return HttpResponseRedirect(next)
-
     def post(self, request, pk):
         """Single post with comments and a comment form."""
 
@@ -286,9 +265,9 @@ class DashBoardView(TemplateView):
 
 
 def delete_blog(request, *args, **kwargs):
-    pass
-    # user = request.session.get('USER_ID', '')
+    # pass
+    user = request.session.get('USER_ID', '')
 
-    # if user.first_name == :
-    #     Blog.objects.filter(first_name=request.user).get(pk=id).delete()
-    #     return HttpResponseRedirect(next)
+    if user is None:
+        Blog.objects.filter(first_name=request.user).get(pk=id).delete()
+        return HttpResponseRedirect(next)

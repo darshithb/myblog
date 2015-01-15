@@ -13,7 +13,7 @@ class BlogForm(forms.ModelForm):
 
     class Meta:
         model = Blog
-        exclude= ['user',]
+        exclude = ['user', ]
 
         widgets = {
             'first_name': forms.TextInput(attrs={'placeholder': "Enter First Name", 'class': 'form-control'}),

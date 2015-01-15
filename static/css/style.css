@@ -39,6 +39,12 @@ h4 {
     left: 300px;
 }
 
+.del-button-com {
+    float: right;
+    right : 10%;
+    width: 51px;
+}
+
 .category-look {
     padding-top: 65px;
 }
@@ -74,7 +80,7 @@ div>.cke_chrome {
     float: left;
     /*position: absolute;*/
     width: 51px;
-    left: 51px;
+    left: 10%;
 }
 
 

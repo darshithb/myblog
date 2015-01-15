@@ -4,6 +4,7 @@
 {#            <script src="http://code.jquery.js"></script>#}
 {#            <script src="js/bootstrap.min.js"></script>#}
     <br>
+    <title>{% block head_title %} Blog | {{ obj.title }} {% endblock %}</title>
     <header class="details-blog">
                      {% block title %}"{{ obj.title }}"{% endblock %}
 
@@ -14,7 +15,7 @@
                         </span>
 
             	</header><!-- .entry-header -->
-{#        <a href="{% url 'delete_blog' obj.pk %}" class="btn btn-danger glyphicon glyphicon-trash del-button"></a>#}
+        <a href="{% url 'delete_blog' obj.pk %}" class="btn btn-danger glyphicon glyphicon-trash del-button"></a>
         <div class="details-blog-body"><center>
             		<p><br>{{ obj.body | safe }} <br>
                     </p>
@@ -30,12 +31,13 @@
     {% for comment in comments %}
         <center><div class="comment">
             <div class="time"><b>{{ comment.created }} | {{ comment.author }}</b></div>
+            <a class="btn btn-danger del-button-com glyphicon glyphicon-trash"></a>
             <div class="body"><b><u>Comment:</u></b>{{ comment.body|linebreaks }}</div>
         </div>
         <hr>
-    {% endfor %}
+    {% endfor %}</center>
 
-    <div id="addc"><h3>Add a comment</h3></div>
+    <center><div id="addc"><h3>Add a comment</h3></div>
     <!-- Comment form  -->
     <form action="{% url 'add_comment' obj.id %}" method="POST">{% csrf_token %}
         <div id="cform">
