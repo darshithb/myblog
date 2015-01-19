@@ -83,6 +83,9 @@ div>.cke_chrome {
     left: 10%;
 }
 
+.msg-display{
+    color: red;
+}
 
 .user-login {
     float: left;

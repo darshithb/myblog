@@ -56,7 +56,6 @@ class view_blog_category(TemplateView):
 
     import pdb
 
-
     def render_to_response(self, context, **response_kwargs):
         # print context.get('slug')
 
@@ -65,7 +64,7 @@ class view_blog_category(TemplateView):
         context['obj'] = obj[0]
         context['user'] = self.request.session.get('USER_ID')
         context['form'] = form
-        context['comments']=Comment.objects.filter(post=obj[0])
+        context['comments'] = Comment.objects.filter(post=obj[0])
         return self.response_class(
             request=self.request,
             template=self.get_template_names(),
@@ -265,9 +264,37 @@ class DashBoardView(TemplateView):
 
 
 def delete_blog(request, *args, **kwargs):
-    # pass
-    user = request.session.get('USER_ID', '')
+    user_id = request.session.get('USER_ID', '')
+    next = reverse('dashboard')
+    id = int(kwargs['id'])
+    inst = Blog.objects.get(pk=id)
+    user = User.objects.get(pk=user_id)
 
-    if user is None:
-        Blog.objects.filter(first_name=request.user).get(pk=id).delete()
+    if inst.first_name == user.first_name:
+        inst.delete()
         return HttpResponseRedirect(next)
+    else:
+        next = reverse('view_blog_post', args=[str(inst.slug)])
+        messages.error(request, "Sorry, you're not the author of this Blog.")
+        return HttpResponseRedirect(next)
+
+
+def delete_comment(request, **kwargs):
+    user_id = request.session.get('USER_ID')
+    id = int(kwargs['id'])
+    inst = Comment.objects.get(pk=id)
+    user = User.objects.get(pk=user_id)
+    post = Blog.objects.get(pk=inst.post_id)
+    next = reverse('view_blog_post', args=[str(post.slug)])
+
+    if post.user_id == user_id or inst.author_id == user_id:
+        inst.delete()
+        return HttpResponseRedirect(next)
+
+    else:
+        messages.error(request, "Sorry, you're not the author of this blog or this comment.")
+        return HttpResponseRedirect(next)
+
+
+
+

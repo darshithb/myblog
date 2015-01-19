@@ -4,6 +4,16 @@
 {#            <script src="http://code.jquery.js"></script>#}
 {#            <script src="js/bootstrap.min.js"></script>#}
     <br>
+    <div>
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert msg-display alert-{{message.tags}}">
+                    <center>{{ message }}</center>
+                    <a class="close">×</a>
+                    </div>
+                {% endfor %}
+        {% endif %}
+    </div>
     <title>{% block head_title %} Blog | {{ obj.title }} {% endblock %}</title>
     <header class="details-blog">
                      {% block title %}"{{ obj.title }}"{% endblock %}
@@ -31,7 +41,7 @@
     {% for comment in comments %}
         <center><div class="comment">
             <div class="time"><b>{{ comment.created }} | {{ comment.author }}</b></div>
-            <a class="btn btn-danger del-button-com glyphicon glyphicon-trash"></a>
+            <a href="{% url 'delete_comment' comment.id  %}" class="btn btn-danger del-button-com glyphicon glyphicon-trash"></a>
             <div class="body"><b><u>Comment:</u></b>{{ comment.body|linebreaks }}</div>
         </div>
         <hr>
