@@ -1,6 +1,7 @@
 from django.db.models import permalink
 from tastypie.utils.timezone import now
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 from django.db import models
 from django.utils.text import slugify
 
@@ -18,6 +19,22 @@ class Category(models.Model):
     @permalink
     def get_absolute_url(self):
         return ('view_blog_category', None, {'slug': self.slug})
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+
+    date_birth = models.DateField(null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
+
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            UserProfile.objects.create(user=instance)
+
+    post_save.connect(create_user_profile, sender=User)
 
 
 class Blog(models.Model):

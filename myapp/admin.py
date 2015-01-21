@@ -4,13 +4,13 @@ from django.conf import settings
 from django.db import models
 from django import forms
 
+
 class BlogAdmin(admin.ModelAdmin):
     exclude = ['posted']
     prepopulated_fields = {'slug': ('title',)}
 
     def __init__(self, model, admin_site):
         super(BlogAdmin, self).__init__(model, admin_site)
-
 
 class CommentAdmin(admin.ModelAdmin):
     display_fields = ["post", "author", "created"]

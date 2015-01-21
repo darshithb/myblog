@@ -289,10 +289,11 @@ def delete_comment(request, **kwargs):
 
     if post.user_id == user_id or inst.author_id == user_id:
         inst.delete()
+        messages.add_message(request, messages.SUCCESS, "Comment deleted successfully.")
         return HttpResponseRedirect(next)
 
     else:
-        messages.error(request, "Sorry, you're not the author of this blog or this comment.")
+        messages.add_message(request, messages.ERROR, "Sorry, you're not the author of this blog or this comment.")
         return HttpResponseRedirect(next)
 
 

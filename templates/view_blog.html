@@ -3,17 +3,17 @@
 {% block content %}
 {#            <script src="http://code.jquery.js"></script>#}
 {#            <script src="js/bootstrap.min.js"></script>#}
+
     <br>
-    <div>
-        {% if messages %}
-                {% for message in messages %}
-                    <div class="alert msg-display alert-{{message.tags}}">
-                    <center>{{ message }}</center>
-                    <a class="close">×</a>
-                    </div>
-                {% endfor %}
-        {% endif %}
-    </div>
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level == 40 %}alert-danger{% else %} alert-success {% endif %} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" onclick="$('.alert').hide()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <center>{{ message }}</center>
+                </div>
+            {% endfor %}
+    {% endif %}
+
     <title>{% block head_title %} Blog | {{ obj.title }} {% endblock %}</title>
     <header class="details-blog">
                      {% block title %}"{{ obj.title }}"{% endblock %}
