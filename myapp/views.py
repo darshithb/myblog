@@ -12,6 +12,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import make_password
 
 
@@ -53,18 +55,28 @@ def view_category(request, slug):
 
 class view_blog_category(TemplateView):
     template_name = "view_blog.html"
-
-    import pdb
+    login_required = True
 
     def render_to_response(self, context, **response_kwargs):
         # print context.get('slug')
-
         form = CommentForm()
+
         obj = Blog.objects.filter(slug=context.get('slug'))
-        context['obj'] = obj[0]
+        try:
+            context['obj'] = obj[0]
+            context['comments'] = Comment.objects.filter(post=obj[0])
+        except:
+            path = self.request.path
+            blog_id = int(path.split("/")[2])
+            context['obj'] = obj = Blog.objects.get(pk=blog_id)
+            context['comments'] = Comment.objects.filter(post=obj)
+
+        # import pdb
+        # pdb.set_trace()
+
         context['user'] = self.request.session.get('USER_ID')
         context['form'] = form
-        context['comments'] = Comment.objects.filter(post=obj[0])
+
         return self.response_class(
             request=self.request,
             template=self.get_template_names(),
@@ -72,13 +84,22 @@ class view_blog_category(TemplateView):
             **response_kwargs
         )
 
+    # @login_required(login_url="/login")
     def post(self, request, pk):
         """Single post with comments and a comment form."""
 
         post = Blog.objects.get(pk=int(pk))
         user_id = self.request.session.get('USER_ID')
-        user = User.objects.get(pk=user_id)
+        try:
+            user = User.objects.get(pk=user_id)
+        except:
+            pass
         body = self.request.POST.get('body')
+
+        if user_id is None:
+            messages.add_message(request, messages.ERROR, "Please login to add comments.")
+            return HttpResponseRedirect(self)
+
         comments = Comment.objects.create(post=post, author=user, body=body)
 
         d = model_to_dict(post)
@@ -268,33 +289,48 @@ def delete_blog(request, *args, **kwargs):
     next = reverse('dashboard')
     id = int(kwargs['id'])
     inst = Blog.objects.get(pk=id)
-    user = User.objects.get(pk=user_id)
 
-    if inst.first_name == user.first_name:
-        inst.delete()
-        return HttpResponseRedirect(next)
-    else:
-        next = reverse('view_blog_post', args=[str(inst.slug)])
-        messages.error(request, "Sorry, you're not the author of this Blog.")
-        return HttpResponseRedirect(next)
+    try:
+        user = User.objects.get(pk=user_id)
+        if inst.first_name == user.first_name:
+            inst.delete()
+            return HttpResponseRedirect(next)
+
+    except:
+        if user_id in [None,'']:
+            messages.add_message(request, messages.ERROR, "Please login to make changes to your blogs.")
+            next = reverse('view_blog_post', args=[str(inst.slug)])
+            return HttpResponseRedirect(next)
+
+    # next = reverse('view_blog_post', args=[str(inst.slug)])
+    messages.error(request, "Sorry, you're not the author of this Blog.")
+    return HttpResponseRedirect(next)
 
 
-def delete_comment(request, **kwargs):
-    user_id = request.session.get('USER_ID')
-    id = int(kwargs['id'])
-    inst = Comment.objects.get(pk=id)
-    user = User.objects.get(pk=user_id)
-    post = Blog.objects.get(pk=inst.post_id)
-    next = reverse('view_blog_post', args=[str(post.slug)])
+class DeleteComment(TemplateView):
+    template_name = "view_blog.html"
+    login_required = True
 
-    if post.user_id == user_id or inst.author_id == user_id:
-        inst.delete()
-        messages.add_message(request, messages.SUCCESS, "Comment deleted successfully.")
-        return HttpResponseRedirect(next)
+    def get(self, request, *args, **kwargs):
+        user_id = request.session.get('USER_ID')
+        id = int(kwargs['id'])
+        inst = Comment.objects.get(pk=id)
+        try:
+            user = User.objects.get(pk=user_id)
+        except:
+            pass
 
-    else:
-        messages.add_message(request, messages.ERROR, "Sorry, you're not the author of this blog or this comment.")
-        return HttpResponseRedirect(next)
+        post = Blog.objects.get(pk=inst.post_id)
+        next = reverse('view_blog_post', args=[str(post.slug)])
+
+        if post.user_id == user_id or inst.author_id == user_id:
+            inst.delete()
+            messages.add_message(request, messages.SUCCESS, "Comment deleted successfully.")
+            return HttpResponseRedirect(next)
+
+        else:
+            messages.add_message(request, messages.ERROR, "Sorry, you're not the author of this blog or this comment.")
+            return HttpResponseRedirect(next)
 
 
 

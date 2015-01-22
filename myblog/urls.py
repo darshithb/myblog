@@ -3,7 +3,7 @@ from django.contrib import admin
 from myapp.views import *
 from tastypie.api import Api
 from myapp.api import EntryResource, UserResource
-# from myapp import views
+# from myapp.views.view_blog_category import delete_comment
 
 entry_resource = EntryResource()
 
@@ -21,7 +21,7 @@ urlpatterns = patterns('',
                        url(r'^add_comment/(\d+)/', view_blog_category.as_view(), name="add_comment"),
                        url(r'^ckeditor/', include('ckeditor.urls')),
                        url(r'^delete/(?P<id>\d+)/$', delete_blog, name='delete_blog'),
-                       url(r'^delete_comment/(?P<id>\d+)/', delete_comment, name='delete_comment'),
+                       url(r'^delete_comment/(?P<id>\d+)/', DeleteComment.as_view(), name='delete_comment'),
                        url(r'^signup/', SignUpView.as_view(), name='signup'),
                        url(r'^dashboard/', DashBoardView.as_view(), name='dashboard'),
                        url(r'^login$', LoginView.as_view(), name='login'),

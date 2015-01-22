@@ -1,7 +1,7 @@
 __author__ = 'darshithb'
 
 from django import forms
-from .models import Blog, Comment
+from .models import Blog, Comment, UserProfile
 from ckeditor.widgets import CKEditorWidget
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -27,6 +27,20 @@ class BlogForm(forms.ModelForm):
         super(BlogForm, self).__init__(*args, **kwargs)
         self.fields['slug'].required = False
         self.fields['first_name'].widget = forms.HiddenInput()
+
+
+# class UserForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = UserProfile
+#         exclude = ['age', ]
+#
+#         widgets = {
+#             'date_birth': forms.DateField(attrs={'placeholder': "Enter Birth Date", 'class': 'form-control'}),
+#             'phone_number': forms.CharField(attrs={'placeholder': "Enter Phone Number", 'class': 'form-control'}),
+#             'address': forms.Textarea(attrs={'placeholder': "Enter Address", 'class': 'form-control'}),
+#             'image': forms.ImageField(attrs={'placeholder': "Upload Image", 'class': 'form-control'})
+#         }
 
 
 class CommentForm(forms.ModelForm):
