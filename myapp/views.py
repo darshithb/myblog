@@ -12,7 +12,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import make_password
 
 
@@ -308,14 +309,60 @@ def delete_blog(request, *args, **kwargs):
 
 class EditBlog(FormView):
     template_name = "Blog_entry.html"
+    login_required = True
     form_class = BlogForm
 
+    def get(self, request, id):
+
+        user_id = request.session.get('USER_ID', '')
+        inst = Blog.objects.get(pk=id)
+
+        try:
+            user = User.objects.get(pk=user_id)
+            if inst.first_name == user.first_name:
+                form = self.form_class(request.POST, instance=inst)
+                # return HttpResponseRedirect(next)
+
+                inst = Blog.objects.get(pk=int(id))
+                form_class = self.get_form_class()
+                form = BlogForm(instance=inst)
+                return self.render_to_response(self.get_context_data(form=form))
+
+
+        except:
+            if user_id in [None, '']:
+                messages.add_message(request, messages.ERROR, "Please login to make changes to your blogs.")
+                next = reverse('view_blog_post', args=[str(inst.slug)])
+                # then = reverse('view_blog_post')
+                return HttpResponseRedirect(next)
+
+        next = reverse('view_blog_post', args=[str(inst.slug)])
+        messages.error(request, "Sorry, you're not the author of this Blog.")
+        return HttpResponseRedirect(next)
 
     def post(self, request, pk, **kwargs):
-        inst = Blog.objects.filter(pk=pk)
-        form = self.form_class(request.POST, inst)
+        # inst = Blog.objects.filter(pk=pk)
 
+        user_id = request.session.get('USER_ID', '')
+        next = reverse('edit_blog')
+        id = int(kwargs['id'])
+        inst = Blog.objects.get(pk=id)
 
+        try:
+            user = User.objects.get(pk=user_id)
+            if inst.first_name == user.first_name:
+                form = self.form_class(request.POST, instance=inst)
+                return HttpResponseRedirect(next)
+
+        except:
+            if user_id in [None, '']:
+                messages.add_message(request, messages.ERROR, "Please login to make changes to your blogs.")
+                next = reverse('view_blog_post', args=[str(inst.slug)])
+                return HttpResponseRedirect(next)
+
+        next = reverse('view_blog_post', args=[str(inst.slug)])
+        messages.add_message(request, messages.ERROR, "Sorry, you're not the author of this blog.")
+        return HttpResponseRedirect(next)
 
 
 class DeleteComment(TemplateView):
