@@ -13,7 +13,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.contrib.auth.models import make_password
 
 
@@ -62,6 +61,7 @@ class view_blog_category(TemplateView):
         form = CommentForm()
 
         obj = Blog.objects.filter(slug=context.get('slug'))
+
         try:
             context['obj'] = obj[0]
             context['comments'] = Comment.objects.filter(post=obj[0])
@@ -70,9 +70,6 @@ class view_blog_category(TemplateView):
             blog_id = int(path.split("/")[2])
             context['obj'] = obj = Blog.objects.get(pk=blog_id)
             context['comments'] = Comment.objects.filter(post=obj)
-
-        # import pdb
-        # pdb.set_trace()
 
         context['user'] = self.request.session.get('USER_ID')
         context['form'] = form
@@ -90,6 +87,7 @@ class view_blog_category(TemplateView):
 
         post = Blog.objects.get(pk=int(pk))
         user_id = self.request.session.get('USER_ID')
+
         try:
             user = User.objects.get(pk=user_id)
         except:
@@ -103,6 +101,7 @@ class view_blog_category(TemplateView):
         comments = Comment.objects.create(post=post, author=user, body=body)
 
         d = model_to_dict(post)
+        messages.add_message(request, messages.SUCCESS, "Comment added successfully.")
         return self.render_to_response(d)
 
 
@@ -297,14 +296,26 @@ def delete_blog(request, *args, **kwargs):
             return HttpResponseRedirect(next)
 
     except:
-        if user_id in [None,'']:
+        if user_id in [None, '']:
             messages.add_message(request, messages.ERROR, "Please login to make changes to your blogs.")
             next = reverse('view_blog_post', args=[str(inst.slug)])
             return HttpResponseRedirect(next)
 
-    # next = reverse('view_blog_post', args=[str(inst.slug)])
+    next = reverse('view_blog_post', args=[str(inst.slug)])
     messages.error(request, "Sorry, you're not the author of this Blog.")
     return HttpResponseRedirect(next)
+
+
+class EditBlog(FormView):
+    template_name = "Blog_entry.html"
+    form_class = BlogForm
+
+
+    def post(self, request, pk, **kwargs):
+        inst = Blog.objects.filter(pk=pk)
+        form = self.form_class(request.POST, inst)
+
+
 
 
 class DeleteComment(TemplateView):

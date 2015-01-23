@@ -3,7 +3,6 @@ from django.contrib import admin
 from myapp.views import *
 from tastypie.api import Api
 from myapp.api import EntryResource, UserResource
-# from myapp.views.view_blog_category import delete_comment
 
 entry_resource = EntryResource()
 
@@ -27,6 +26,7 @@ urlpatterns = patterns('',
                        url(r'^login$', LoginView.as_view(), name='login'),
                        url(r'^api/', include(v1_api.urls)),
                        url(r'^logout$', 'django.contrib.auth.views.logout', {"next_page":"/"}, name='logout'),
-                       url(r'^addblog/', add_new_blog.as_view(), name='add_blog')
+                       url(r'^addblog/', add_new_blog.as_view(), name='add_blog'),
+                       url(r'^editblog/', EditBlog.as_view(), name='edit_blog')
                        # url(r'^/(?P<slug>)', view_blog_category.as_view(), name='view_blog_category'),
                        )

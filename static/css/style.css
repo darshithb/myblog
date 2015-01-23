@@ -41,8 +41,8 @@ h4 {
 
 .del-button-com {
     float: right;
-    right : 10%;
-    width: 51px;
+    right : 7%;
+    width: 3%;
 }
 
 .category-look {
@@ -79,9 +79,14 @@ div>.cke_chrome {
 .del-button{
     float: left;
     /*position: absolute;*/
-    width: 51px;
-    left: 10%;
+    width: 3%;
+    left: 7%;
 }
+
+/*.edit-button{*/
+    /*float: right;*/
+    /*left: 90%*/
+/*}*/
 
 .msg-display{
     color: red;
@@ -113,7 +118,7 @@ div>.cke_chrome {
 }
 
 .signup {
-    background: url('http://www.eizoglobal.com/library/basics/difference_in_image_quality/25b.jpg') no-repeat center center fixed;
+    background: url("../images/back.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

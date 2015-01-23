@@ -8,7 +8,7 @@
     {% if messages %}
             {% for message in messages %}
                 <div class="alert {% if message.level == 40 %}alert-danger{% else %} alert-success {% endif %} alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" onclick="$('.alert').hide()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <button type="button" class="close" data-dismiss="alert" onclick="$('.alert').hide()" aria-label="Close">X</button>
                   <center>{{ message }}</center>
                 </div>
             {% endfor %}
@@ -25,7 +25,8 @@
                         </span>
 
             	</header><!-- .entry-header -->
-        <a href="{% url 'delete_blog' obj.pk %}" class="btn btn-danger glyphicon glyphicon-trash del-button"></a>
+        <a href="{% url 'delete_blog' obj.pk %}" class="btn btn-danger del-button glyphicon glyphicon-trash"></a>
+        <a href="{% url 'edit_blog' obj.pk %}" class="btn btn-info del-button-com glyphicon glyphicon-pencil"></a>
         <div class="details-blog-body"><center>
             		<p><br>{{ obj.body | safe }} <br>
                     </p>
@@ -51,7 +52,7 @@
     <!-- Comment form  -->
     <form action="{% url 'add_comment' obj.id %}" method="POST">{% csrf_token %}
         <div id="cform">
-            Name: {{ form.author }}
+{#            Name: {{ form.author }}#}
             <p>{{ form.body }}</p>
         </div>
         <div id="submit"><input type="submit" value="Submit"></div>
