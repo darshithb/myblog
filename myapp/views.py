@@ -260,14 +260,28 @@ class SignUpView(FormView):
 class DashBoardView(TemplateView):
 
     template_name = 'dashboard.html'
+    login_required = True
 
     def filtered_blogs(request, user_id):
-
+        # import pdb
+        # pdb.set_trace()
         # user_id = request.session.get('USER_ID', '')
-        f_blog = Blog.objects.all().filter(user=user_id)
-        f_blog = f_blog.order_by('-posted')
 
-        return f_blog
+        if user_id in [None, '']:
+            messages.add_message(request, messages.ERROR, "Please login to view your list of blogs in the dashboard.")
+            next = reverse('dashboard')
+            # then = reverse('view_blog_post')
+            return HttpResponseRedirect(next)
+
+        else:
+            f_blog = Blog.objects.all().filter(user=user_id)
+            f_blog = f_blog.order_by('-posted')
+
+            return f_blog
+
+        next = reverse('dashboard')
+        messages.add_message(request, messages.ERROR, "Please login to view your list of blogs in the dashboard.")
+        return HttpResponseRedirect(next)
 
     def render_to_response(self, context, **response_kwargs):
 
@@ -294,6 +308,7 @@ def delete_blog(request, *args, **kwargs):
         user = User.objects.get(pk=user_id)
         if inst.first_name == user.first_name:
             inst.delete()
+            messages.add_message(request, messages.SUCCESS, "Your blog was successfully deleted.")
             return HttpResponseRedirect(next)
 
     except:

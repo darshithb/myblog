@@ -1,8 +1,9 @@
 {%  extends 'base_site.html' %}
 
+{% load staticfiles %}
 {% block content %}
 {#            <script src="http://code.jquery.js"></script>#}
-{#            <script src="js/bootstrap.min.js"></script>#}
+
 
     <br>
     {% if messages %}
@@ -57,6 +58,15 @@
         </div>
         <div id="submit"><input type="submit" value="Submit"></div>
     </form></center>
-        {% endblock %}
+
+{#    <script type="text/javascript">#}
+{#        $(document).ready(function(){#}
+{#            alert("success");#}
+{#        });#}
+{#    </script>#}
+
+     <script src="{%static 'js/c_events.js' %}" type="text/javascript"></script>
+
+{% endblock %}
 
 

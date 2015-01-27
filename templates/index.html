@@ -3,6 +3,17 @@
 {% load static %}
 
 {% block content %}
+
+    <br>
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level == 40 %}alert-danger{% else %} alert-success {% endif %} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" onclick="$('.alert').hide()" aria-label="Close">X</button>
+                  <center>{{ message }}</center>
+                </div>
+            {% endfor %}
+    {% endif %}
+
     {% if posts %}
         <!-- <ul>{%for post in posts%}<li>{{post.0}} {{post.1.split.0}}</li>{%endfor%}</ul> -->
         <ul> 

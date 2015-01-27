@@ -2,6 +2,7 @@ from django.contrib import admin
 from myapp.models import Blog, Category, Entry, Comment
 from django.conf import settings
 from django.db import models
+from django.forms import Textarea, TimeField
 from django import forms
 
 
@@ -12,8 +13,13 @@ class BlogAdmin(admin.ModelAdmin):
     def __init__(self, model, admin_site):
         super(BlogAdmin, self).__init__(model, admin_site)
 
+
 class CommentAdmin(admin.ModelAdmin):
     display_fields = ["post", "author", "created"]
+
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':60})},
+    }
 
 
 class CategoryAdmin(admin.ModelAdmin):

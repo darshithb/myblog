@@ -26,6 +26,16 @@
 <!-- {% endif %}</h1> -->
     </h1>
 
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level == 40 %}alert-danger{% else %} alert-success {% endif %} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" onclick="$('.alert').hide()" aria-label="Close">X</button>
+                  <center>{{ message }}</center>
+                </div>
+            {% endfor %}
+    {% endif %}
+
+
     {% if blog %}
         <ul>
             <hr>
